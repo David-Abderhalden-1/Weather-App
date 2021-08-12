@@ -1,12 +1,17 @@
 <template>
   <p> {{ test }} </p>
+  
 </template>
 
 <script>
+//import mainPage from './components/mainPage.vue'
+//import locationPage from './components/locationPage.vue'
 
 export default {
   name: 'App',
   components: {
+    //mainPage,
+    //locationPage
   },
   computed: {
     test() {
