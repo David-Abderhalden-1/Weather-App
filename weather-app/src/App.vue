@@ -1,4 +1,5 @@
 <template>
+  <p> {{ test }} </p>
   <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js App"/>
 </template>
@@ -10,7 +11,13 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+  computed: {
+    test() {
+      return this.$store.state.test
+    }
   }
+
 }
 </script>
 
