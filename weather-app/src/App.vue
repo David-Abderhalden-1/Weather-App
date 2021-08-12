@@ -1,27 +1,8 @@
 <template>
-  <p> {{ test }} </p>
-  <router-view></router-view>
-  
+  <div id="nav">
+  </div>
+  <router-view/>
 </template>
-
-<script>
-//import mainPage from './components/mainPage.vue'
-//import locationPage from './components/locationPage.vue'
-
-export default {
-  name: 'App',
-  components: {
-    //mainPage,
-    //locationPage
-  },
-  computed: {
-    test() {
-      return this.$store.state.test
-    }
-  }
-
-}
-</script>
 
 <style>
 #app {
@@ -30,6 +11,18 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
 }
 </style>
