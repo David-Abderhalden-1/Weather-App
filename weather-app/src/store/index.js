@@ -5,6 +5,8 @@ export const store = createStore({
         weatherApiRoute: 'https://api.openweathermap.org/data/2.5/onecall?',
         weatherApiKey: 'cdb3d2c6335926ea02db7e9f0393d50b',
         weatherApi: null,
+        excludeAll: ['minutely', 'hourly', 'current', 'daily'],
+        exclude: [],
 
         locationApiRoute: 'https://api.opencagedata.com/geocode/v1/json?',
         locationApiKey: '3704786e3b59476984ceb60d61cf5ab7',
@@ -22,14 +24,12 @@ export const store = createStore({
     },
     mutations: {
         createWeatherAPI(state, payload) {
-            state.weatherApi = `${state.weatherApiRoute}lat=${payload.lat}&lon=${payload.lon}&exclude=${payload.exclude}&appid=${state.weatherApiKey}`
+            state.exclude = state.excludeAll.filter(word => word != payload.include);
+            state.weatherApi = `${state.weatherApiRoute}lat=${payload.lat}&lon=${payload.lon}&exclude=${state.exclude}&appid=${state.weatherApiKey}`
         },
 
         createLocationAPI(state, payload) {
             state.locationApi = `${state.locationApiRoute}q=${payload.input}&no_annotations=1&limit=${state.locationApiAmount}&key=${state.locationApiKey}`
         }
-    },
-    mounted() {
-        this.createAPI()
-    },
+    },  
 })

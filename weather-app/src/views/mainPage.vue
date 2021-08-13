@@ -32,7 +32,7 @@ export default {
         type: 'createWeatherAPI',
         lat: '47.376888',
         lon: '8.541694',
-        exclude: 'minutely,hourly,current',
+        include: 'daily',
       })
       console.log(this.weatherApi)
     },
