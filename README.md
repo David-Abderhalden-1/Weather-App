@@ -35,7 +35,8 @@ This is a Team-Work project to learn VueJS.
             state.number += parseInt(payload.amount)
         }
     }  
-}) ```
+}) 
+```
 
 ### In component
 ``` import { mapGetters } from "vuex";
@@ -63,4 +64,5 @@ export default {
     }
   }
 
-}; ```
+}; 
+```
