@@ -1,0 +1,97 @@
+html,
+body,
+main {
+    margin: 0px;
+    padding: 0;
+    height: 844px;
+    width: var(--screenwidth);
+    color: white;
+}
+
+.locationandtemperaturesector {
+    height: 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: var(--foreground);
+}
+
+.h1location {
+    font-size: 80px;
+    padding: 0;
+    margin: 0;
+}
+
+.h2temperature {
+    font-size: 30px;
+    padding: 0;
+    margin: 0;
+}
+
+.hourlyforecast {
+    width: var(--screenwidth);
+    display: flex;
+    justify-content: center;
+    height: 15%;
+}
+
+.hourlyforecast__forecastlist {
+    height: 100%;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    overflow: scroll;
+    overflow-x: auto;
+    width: 90%;
+}
+
+.forecastlist__forecastlistelement {
+    padding: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.forecastlistelement__textcontent {
+    font-size: 27px;
+}
+
+.textcontent__modifier {
+    font-weight: bold;
+}
+
+.weeklyforecast {
+    height: 50%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: var(--screenwidth);
+    padding-top: 20px;
+}
+
+.weeklyforecast__weeklytable {
+    width: 85%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 90%;
+}
+
+.weeklyrowentity__tabledata {
+    font-size: 25px;
+}
+
+.tabledata__modifier {
+    text-align: end;
+}
+
+.weeklyrowentity__tableheader {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: end;
+    padding-bottom: 10px;
+}
+
+.weeklyrowentity {
+    margin: 10px
+}

@@ -1,16 +1,17 @@
 * {
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  --background: #261c2c;
-  --foreground: #3e2c41;
-  --accent1: #5c527f;
-  --accent2: #6e85b2;
-  --niceGreen: #50cb93;
-  --lightRed: #ff4848;
-  --darkGrey: #494949;
-  --lightGrey: #eee;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    --background: #261c2c;
+    --foreground: #3e2c41;
+    --accent1: #5c527f;
+    --accent2: #6e85b2;
+    --niceGreen: #50cb93;
+    --lightRed: #ff4848;
+    --darkGrey: #494949;
+    --lightGrey: #eee;
+    --screenwith: 390px;
 }
