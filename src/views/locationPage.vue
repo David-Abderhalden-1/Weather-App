@@ -1,5 +1,6 @@
 <template>
   <p>locationpage</p>
+  <a href="/">Go back</a>
 </template>
 
 <script>

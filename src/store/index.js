@@ -12,6 +12,31 @@ export const store = createStore({
         locationApiKey: '3704786e3b59476984ceb60d61cf5ab7',
         locationApi: null,
         locationApiAmount: 10,
+
+        // test data
+        cities: [
+          {
+            name: 'Zürich',
+            temperature: 26,
+            weather: 'cloudy',
+            lat: 57.38,
+            lon: 85.84
+          },
+          {
+            name: 'Bern',
+            temperature: 29,
+            weather: 'sunny',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          }
+        ]
     },
     getters: {
         getWeatherApi(state) {
@@ -20,6 +45,11 @@ export const store = createStore({
 
         getLocationApi(state) {
             return state.locationApi
+        },
+
+        //test data
+        getCities(state){
+          return state.cities;
         }
     },
     mutations: {
@@ -31,5 +61,5 @@ export const store = createStore({
         createLocationAPI(state, payload) {
             state.locationApi = `${state.locationApiRoute}q=${payload.input}&no_annotations=1&limit=${state.locationApiAmount}&key=${state.locationApiKey}`
         }
-    },  
+    },
 })

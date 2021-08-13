@@ -1,37 +1,37 @@
 <template>
   <div class="mainPage">
     <div class="mainPage__container">
-      <input
-        class="mainPage__container__searchbar"
-        type="text"
-        placeholder="Search"
-      />
+      <input class="container__searchbar" type="text" placeholder="Search" />
       <button
-        class="mainPage__container__editBtn"
+        class="container__editBtn"
         v-if="!inSearch"
         @click="inSearch = true"
       >
         Edit
       </button>
       <button
-        class="mainPage__container__addBtn"
+        class="container__addBtn"
         v-if="inSearch"
         @click="inSearch = false"
       >
         Add
       </button>
     </div>
-    <div class="mainPage__card">
-      <p>placeholder div</p>
-    </div>
+    <router-link to="/Location">
+      <div class="mainPage__card" v-for="city in cities" :key="city.name">
+        <weather-card :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
+      </div>
+    </router-link>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+import weatherCard from '@/components/weatherCard.vue';
 
 export default {
-  name: "App",
+  components: { weatherCard },
+  name: 'App',
 
   data() {
     return {
@@ -42,8 +42,9 @@ export default {
 
   computed: {
     ...mapGetters({
-      weatherApi: "getWeatherApi",
-      locationApi: "getLocationApi",
+      weatherApi: 'getWeatherApi',
+      locationApi: 'getLocationApi',
+      cities: 'getCities'
     }),
   },
 
@@ -51,17 +52,17 @@ export default {
     // FOR TESTING
     testLogWeatherApiBuild() {
       this.$store.commit({
-        type: "createWeatherAPI",
-        lat: "47.376888",
-        lon: "8.541694",
-        include: "daily",
+        type: 'createWeatherAPI',
+        lat: '47.376888',
+        lon: '8.541694',
+        include: 'daily',
       });
       console.log(this.weatherApi);
     },
 
     testLogLocationApiBuild() {
       this.$store.commit({
-        type: "createLocationAPI",
+        type: 'createLocationAPI',
         input: this.input,
       });
       console.log(this.locationApi);

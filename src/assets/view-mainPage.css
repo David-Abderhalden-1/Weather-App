@@ -14,7 +14,7 @@ body {
   margin: 20px auto;
 }
 
-.mainPage__container__searchbar {
+.container__searchbar {
   width: 79%;
   height: 25px;
   margin-right: 1%;
@@ -25,7 +25,11 @@ body {
   background-color: #fff;
 }
 
-.mainPage__container__addBtn {
+.container__searchbar:focus {
+  outline: 2px solid var(--accent2);
+}
+
+.container__addBtn {
   width: 19%;
   height: 25px;
   margin-left: 1%;
@@ -36,14 +40,14 @@ body {
   transition: all 0.4s ease 0s;
 }
 
-.mainPage__container__addBtn:hover {
+.container__addBtn:hover {
   color: #ffffff;
   background: var(--niceGreen);
   border-color: var(--niceGreen);
   transition: 0.2s ease-out;
 }
 
-.mainPage__container__editBtn {
+.container__editBtn {
   width: 19%;
   height: 25px;
   margin-left: 1%;
@@ -54,7 +58,7 @@ body {
   transition: all 0.4s ease 0s;
 }
 
-.mainPage__container__editBtn:hover {
+.container__editBtn:hover {
   color: #ffffff;
   background: var(--accent2);
   border-color: var(--accent2);
@@ -62,9 +66,42 @@ body {
 }
 
 .mainPage__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 300px;
   height: 50px;
-  background-color: var(--foreground);
+  background-color: var(--accent1);
   margin: 10px auto;
   border-radius: 5px;
+  color: var(--background);
+  transition: background, color 0.2s ease-out;
+}
+
+.mainPage__card:hover{
+  background: var(--accent2);
+  color: var(--niceGreen);
+  outline: 2px solid var(--niceGreen);
+}
+
+.card__city{
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.card__city-info{
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.city-info__img{
+  height: 50px;
+}
+
+a{
+  text-decoration: none;
 }
