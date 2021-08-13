@@ -2,21 +2,14 @@
   <div class="mainPage">
     <div class="mainPage__container">
       <input
+        list="locations"
         class="mainPage__container__searchbar"
         type="text"
         placeholder="Search"
+        v-model="input"
       />
       <button
-        class="mainPage__container__editBtn"
-        v-if="!inSearch"
-        @click="inSearch = true"
-      >
-        Edit
-      </button>
-      <button
-        class="mainPage__container__addBtn"
-        v-if="inSearch"
-        @click="inSearch = false"
+        @click="addCard"
       >
         Add
       </button>
@@ -24,48 +17,57 @@
     <div class="mainPage__card">
       <p>placeholder div</p>
     </div>
+    <!-- REMOVE BEFORE MERGE -->
+    <datalist id="locations" style="height: 20px; width: 40px;">
+      <option v-for="(element, index) in searchResult" :key="index">{{element.formatted}}</option>
+    </datalist>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { locationApi } from "../instances";
 
 export default {
   name: "App",
 
   data() {
     return {
-      input: null,
-      inSearch: false,
+      input: '',
     };
   },
 
   computed: {
     ...mapGetters({
-      weatherApi: "getWeatherApi",
-      locationApi: "getLocationApi",
+      searchResult: "getSearchLocationResponse",
+      cards: "getCards"
     }),
+  },
+
+  watch: {
+    input() {
+      if(this.input.length > 2){
+        this.sendRequest()
+      }
+    }
   },
 
   methods: {
     // FOR TESTING
-    testLogWeatherApiBuild() {
-      this.$store.commit({
-        type: "createWeatherAPI",
-        lat: "47.376888",
-        lon: "8.541694",
-        include: "daily",
-      });
-      console.log(this.weatherApi);
+    sendRequest(){
+      locationApi({params: {q: this.input}})
+      .then((response) => {
+        this.$store.commit({
+          type: "storeSearchResult",
+          results: response.data.results,
+        })
+      })
     },
-
-    testLogLocationApiBuild() {
+    addCard() {
       this.$store.commit({
-        type: "createLocationAPI",
-        input: this.input,
-      });
-      console.log(this.locationApi);
-    },
+        type: 'addCard',
+      })
+    }
   },
 };
 </script>
