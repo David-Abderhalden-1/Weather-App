@@ -1,7 +1,9 @@
 <template>
  <p>mainpage</p>
  <!-- FOR TESTING. REMOVE BEFORE DEPLOYMENT -->
- <button @click="testLogApiBuild"/>
+ <button @click="testLogWeatherApiBuild"/>
+ <input v-model="input"/>
+  <button @click="testLogLocationApiBuild"/>
 </template>
 
 <script>
@@ -10,22 +12,37 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'App',
 
+  data() {
+    return {
+      input: null,
+    }
+  },
+
   computed: {
     ...mapGetters({
-      api: 'getApi',
+      weatherApi: 'getWeatherApi',
+      locationApi: 'getLocationApi',
     })
   },
 
   methods: {
     // FOR TESTING
-    testLogApiBuild() {
+    testLogWeatherApiBuild() {
       this.$store.commit({
-        type: 'createAPI',
+        type: 'createWeatherAPI',
         lat: '47.376888',
         lon: '8.541694',
         exclude: 'minutely,hourly,current',
       })
-      console.log(this.api)
+      console.log(this.weatherApi)
+    },
+
+    testLogLocationApiBuild() {
+      this.$store.commit({
+        type: 'createLocationAPI',
+        input: this.input,
+      })
+      console.log(this.locationApi)
     }
   }
 }
