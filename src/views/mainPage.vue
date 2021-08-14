@@ -28,6 +28,7 @@
     <div>
       <div class="mainPage__card" v-for="(card, index) in cards" :key="index">
         <p>{{ card.title }}</p>
+        <p></p>
       </div>
     </div>
   </div>
@@ -42,15 +43,17 @@ export default {
 
   data() {
     return {
-      input: "",
+      input: "",    // linked to inpput field
     };
   },
 
   computed: {
+    // data from store
     ...mapGetters({
-      searchResult: "getSearchLocationResponse",
-      cards: "getCards",
+      searchResult: "getSearchLocationResponse",    // api search data
+      cards: "getCards",                            // all cards
     }),
+    // prevent dropdown if no input
     activeResults() {
       if (this.input != "") {
         return this.searchResult;
@@ -60,15 +63,16 @@ export default {
   },
 
   watch: {
+    // update search result on every input
     input() {
-      if (this.input.length > 2) {
+      if (this.input.length > 2) {      // api needs at least two letters. else error
         this.sendRequest();
       }
     },
   },
 
   methods: {
-    // FOR TESTING
+    // loaction api interface
     sendRequest() {
       locationApi({ params: { q: this.input } }).then((response) => {
         this.$store.commit({
@@ -77,6 +81,7 @@ export default {
         });
       });
     },
+    // highlight the active input in search result
     highlight(element) {
       //const serializedInput = new RegExp(this.input)
       // PREVENT XSS !
@@ -92,8 +97,9 @@ export default {
       this.$store.commit({
         type: "addCard",
       });
-      this.input = "";
+      this.input = "";      // reset input
     },
+    // select from the dropdown
     selectElement(index) {
       this.input = this.searchResult[index].formatted;
     },

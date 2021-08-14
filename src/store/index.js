@@ -2,11 +2,11 @@ import { createStore } from 'vuex'
 
 export const store = createStore({
     state: {
-        excludeAll: ['minutely', 'hourly', 'current', 'daily'],
+        excludeAll: ['minutely', 'hourly', 'current', 'daily'],     // all weather api 'exclude' param options
         exclude: [],
 
-        searchLocationResponse: {},
-        cards: [],
+        searchLocationResponse: {},         // tmp search result storage
+        cards: [],          // all active cards.
     },
     getters: {
         getSearchLocationResponse(state) {
@@ -17,29 +17,32 @@ export const store = createStore({
         },
     },
     mutations: {
+        // results from search of the location api interface are stored
         storeSearchResult(state, payload) {
             state.searchLocationResponse = payload.results;
         },
 
         addCard(state) {
+            // Top result is reformatted and stored as card
             try{
                 const location = state.searchLocationResponse[0]
                 const cardBuilder = {
-                    title: location.formatted,
-                    lat: location.geometry.lat,
-                    lng: location.geometry.lng,
+                    title: location.formatted,      // location preview name
+                    lat: location.geometry.lat,     // latitude
+                    lng: location.geometry.lng,     // longitude
                 }
+                // Prevent redundant cards
                 if (!state.cards.some(card => card["title"] === cardBuilder.title)) {
                     state.cards.push(cardBuilder)
                 }
                 else {
-                    alert("card has already been added.")
+                    alert("card has already been added.")       // probably change
                 }
             }
             catch (error){
                 return 0
             }
-            state.searchLocationResponse = {}
+            state.searchLocationResponse = {}          // reset the search results to null
         }
     },
 })
