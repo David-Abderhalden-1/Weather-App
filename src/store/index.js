@@ -35,6 +35,76 @@ export const store = createStore({
             weather: 'rain',
             lat: 58.38,
             lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
           }
         ]
     },

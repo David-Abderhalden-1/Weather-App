@@ -1,16 +1,16 @@
 <template>
-  <div class="mainPage">
-    <div class="mainPage__container">
+  <div class="main-page">
+    <div class="main-page__container">
       <input class="container__searchbar" type="text" placeholder="Search" />
       <button
-        class="container__editBtn"
+        class="container__edit-btn"
         v-if="!inSearch"
         @click="inSearch = true"
       >
         Edit
       </button>
       <button
-        class="container__addBtn"
+        class="container__add-btn"
         v-if="inSearch"
         @click="inSearch = false"
       >
@@ -18,7 +18,7 @@
       </button>
     </div>
     <router-link to="/Location">
-      <div class="mainPage__card" v-for="city in cities" :key="city.name">
+      <div class="main-page__card" v-for="city in cities" :key="city.name">
         <weather-card :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
       </div>
     </router-link>
