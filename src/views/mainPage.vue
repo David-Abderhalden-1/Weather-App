@@ -26,9 +26,11 @@
       <button @click="addCard">Add</button>
     </div>
     <div>
-      <div class="mainPage__card" v-for="(card, index) in cards" :key="index">
-        <p>{{ card.title }}</p>
-        <p></p>
+      <div class="mainPage__card" v-for="(card, index) in cards" :key="index"
+      v-html="'<p>'+card.title+'</p>'+
+      '<p>'+requestWeather(index)+'</p>'
+      "
+      >
       </div>
     </div>
   </div>
@@ -36,23 +38,25 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { locationApi } from "../instances";
+import { locationApi, weatherApi } from "../instances";
 
 export default {
   name: "App",
 
   data() {
     return {
-      input: "",    // linked to inpput field
+      input: "", // linked to inpput field
+      weather: [],
     };
   },
 
   computed: {
     // data from store
     ...mapGetters({
-      searchResult: "getSearchLocationResponse",    // api search data
-      cards: "getCards",                            // all cards
+      searchResult: "getSearchLocationResponse", // api search data
+      cards: "getCards", // all cards
     }),
+
     // prevent dropdown if no input
     activeResults() {
       if (this.input != "") {
@@ -65,22 +69,42 @@ export default {
   watch: {
     // update search result on every input
     input() {
-      if (this.input.length > 2) {      // api needs at least two letters. else error
-        this.sendRequest();
+      if (this.input.length > 2) {
+        // api needs at least two letters. else error
+        this.requestLocation();
       }
     },
   },
 
   methods: {
     // loaction api interface
-    sendRequest() {
-      locationApi({ params: { q: this.input } }).then((response) => {
+    requestLocation() {
+      locationApi({
+        params: {
+          q: this.input,
+        },
+      }).then((response) => {
         this.$store.commit({
           type: "storeSearchResult",
           results: response.data.results,
         });
       });
     },
+
+    requestWeather(index) {
+      const activeCard = this.cards[index]
+      weatherApi({
+        params: {
+          lat: activeCard.lat,
+          lon: activeCard.lng,
+          exclude: 'hourly,daily,minutely',
+        },
+      }).then((response) => {
+        this.weather[index] = response.data.current.weather[0].description
+      })
+      return this.weather[index]
+    },
+
     // highlight the active input in search result
     highlight(element) {
       //const serializedInput = new RegExp(this.input)
@@ -93,12 +117,14 @@ export default {
         );
       }
     },
+
     addCard() {
       this.$store.commit({
         type: "addCard",
       });
-      this.input = "";      // reset input
+      this.input = ""; // reset input
     },
+
     // select from the dropdown
     selectElement(index) {
       this.input = this.searchResult[index].formatted;

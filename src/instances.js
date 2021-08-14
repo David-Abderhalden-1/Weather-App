@@ -12,7 +12,7 @@ const weatherApi = axios.create({
     // hardcoded parameters
     method: "GET",
     params: {
-        key: 'cdb3d2c6335926ea02db7e9f0393d50b',        // API key in required
+        appid: '91fb90d21cd4ad5605c01a692c650266',        // API key in required
     }
 })
 

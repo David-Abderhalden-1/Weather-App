@@ -43,6 +43,6 @@ export const store = createStore({
                 return 0
             }
             state.searchLocationResponse = {}          // reset the search results to null
-        }
+        },
     },
 })
