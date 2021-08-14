@@ -9,10 +9,10 @@ export const store = createStore({
         cards: [],
     },
     getters: {
-        getSearchLocationResponse(state){
+        getSearchLocationResponse(state) {
             return state.searchLocationResponse
         },
-        getCards(state){
+        getCards(state) {
             return state.cards
         },
     },
@@ -22,14 +22,24 @@ export const store = createStore({
         },
 
         addCard(state) {
-            const location = state.searchLocationResponse[0]
-            const cardBuilder = {
-                title: location.formatted,
-                lat: location.geometry.lat,
-                lng: location.geometry.lng,
+            try{
+                const location = state.searchLocationResponse[0]
+                const cardBuilder = {
+                    title: location.formatted,
+                    lat: location.geometry.lat,
+                    lng: location.geometry.lng,
+                }
+                if (!state.cards.some(card => card["title"] === cardBuilder.title)) {
+                    state.cards.push(cardBuilder)
+                }
+                else {
+                    alert("card has already been added.")
+                }
             }
-            console.log(cardBuilder)
-            state.cards.push(cardBuilder)
+            catch (error){
+                return 0
+            }
+            state.searchLocationResponse = {}
         }
-    },  
+    },
 })

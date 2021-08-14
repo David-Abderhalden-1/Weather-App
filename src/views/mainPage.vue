@@ -3,28 +3,27 @@
     <div class="mainPage__container">
       <input
         list="locations"
-        class="mainPage__container__searchbar"
+        class="container__searchbar"
         type="text"
         placeholder="Search"
         v-model="input"
         @keypress.enter="addCard"
       />
-      <div style="z-index: 99; position: fixed; background: white; width: 24%;">
-        <p v-for="(element, index) in activeResults" :key="index" 
-        @click="selectElement(index)"
-        style="border: 1px solid black;"
-        >
-          {{ element.formatted }}
-        </p>
+      <div class="container__dropdown">
+        <p
+          class="dropdown__text"
+          v-for="(element, index) in activeResults"
+          :key="index"
+          @click="selectElement(index)"
+          v-html="highlight(element)"
+        ></p>
       </div>
       <!--datalist id="locations">
         <option v-for="(element, index) in searchResult" :key="index">
           {{ element.formatted }}
         </option>
       </datalist-->
-      <button 
-      @click="addCard"
-      >Add</button>
+      <button @click="addCard">Add</button>
     </div>
     <div>
       <div class="mainPage__card" v-for="(card, index) in cards" :key="index">
@@ -52,12 +51,12 @@ export default {
       searchResult: "getSearchLocationResponse",
       cards: "getCards",
     }),
-    activeResults(){
-      if(this.input != ''){
-        return this.searchResult
+    activeResults() {
+      if (this.input != "") {
+        return this.searchResult;
       }
-      return null
-    }
+      return null;
+    },
   },
 
   watch: {
@@ -78,15 +77,26 @@ export default {
         });
       });
     },
+    highlight(element) {
+      //const serializedInput = new RegExp(this.input)
+      // PREVENT XSS !
+      if (element != null) {
+        const string = element.formatted;
+        return string.replace(
+          this.input,
+          "<strong>" + this.input + "</strong>"
+        );
+      }
+    },
     addCard() {
       this.$store.commit({
         type: "addCard",
       });
-      this.input = ''
+      this.input = "";
     },
-    selectElement(index){
-      this.input = this.searchResult[index].formatted
-    }
+    selectElement(index) {
+      this.input = this.searchResult[index].formatted;
+    },
   },
 };
 </script>
