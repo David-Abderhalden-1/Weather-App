@@ -17,11 +17,13 @@
         Add
       </button>
     </div>
-    <router-link to="/Location">
-      <div class="main-page__card" v-for="city in cities" :key="city.name">
-        <weather-card :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
-      </div>
-    </router-link>
+    <div class="main-page__container2">
+      <router-link to="/Location">
+        <div class="container2__card" v-for="city in cities" :key="city.name">
+          <weather-card :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
