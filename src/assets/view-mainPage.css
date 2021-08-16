@@ -6,7 +6,7 @@ body {
   background: var(--background);
   padding: 20px;
   background-image: url('./img/anime-sky.jpg');
-  background-size: cover;
+  background-size: 390px 844px;
 }
 
 
@@ -37,8 +37,8 @@ body {
 
 .container__dropdown{
   position: absolute;
-  z-index: 99; 
-  background: white; 
+  z-index: 99;
+  background: white;
   width: 79%;
 }
 

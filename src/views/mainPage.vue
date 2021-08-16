@@ -132,6 +132,7 @@ export default {
     },
 
     addCard() {
+      localStorage.setItem('')
       this.$store.commit({
         type: "addCard",
       });
