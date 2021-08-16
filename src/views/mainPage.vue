@@ -34,7 +34,7 @@
       </button>
     </div>
     <div class="main-page__container2">
-        <div class="conteiner2__city-loop" v-for="(card, index) in cards" :key="index">
+        <div class="container2__city-loop" v-for="(card, index) in cards" :key="index">
           <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="requestTemperatur(index)" :cityWeather="requestWeather(index)"></weather-card>
           <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
         </div>
@@ -149,6 +149,8 @@ export default {
     },
 
     addCard() {
+      localStorage.setItem('cards', this.cards)
+
       this.$store.commit({
         type: "addCard",
       });
