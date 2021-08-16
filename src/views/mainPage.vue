@@ -97,7 +97,7 @@ export default {
         params: {
           lat: activeCard.lat,
           lon: activeCard.lng,
-          exclude: 'hourly,daily,minutely',
+          exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
         },
       }).then((response) => {
         this.weather[index] = response.data.current.weather[0].description

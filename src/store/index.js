@@ -2,8 +2,8 @@ import { createStore } from 'vuex'
 
 export const store = createStore({
     state: {
-        excludeAll: ['minutely', 'hourly', 'current', 'daily'],     // all weather api 'exclude' param options
-        exclude: [],
+        //excludeAll: ['minutely', 'hourly', 'current', 'daily'],     // all weather api 'exclude' param options
+        //exclude: [],
 
         searchLocationResponse: {},         // tmp search result storage
         cards: [],          // all active cards.
@@ -45,4 +45,14 @@ export const store = createStore({
             state.searchLocationResponse = {}          // reset the search results to null
         },
     },
+    actions: {
+      /*
+      getExcluded(state, payload) {
+        console.log(payload.include)
+        const index = state.excludeAll.indexOf('current')
+        state.exclude = state.excludeAll.splice(index)
+        return state.exclude
+      }
+      */
+    }
 })
