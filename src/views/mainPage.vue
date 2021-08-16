@@ -2,74 +2,138 @@
   <div class="mainPage">
     <div class="mainPage__container">
       <input
-        class="mainPage__container__searchbar"
+        list="locations"
+        class="container__searchbar"
         type="text"
         placeholder="Search"
+        v-model="input"
+        @keypress.enter="addCard"
       />
-      <button
-        class="mainPage__container__editBtn"
-        v-if="!inSearch"
-        @click="inSearch = true"
-      >
-        Edit
-      </button>
-      <button
-        class="mainPage__container__addBtn"
-        v-if="inSearch"
-        @click="inSearch = false"
-      >
-        Add
-      </button>
+      <div class="container__dropdown">
+        <p
+          class="dropdown__text"
+          v-for="(element, index) in activeResults"
+          :key="index"
+          @click="selectElement(index)"
+          v-html="highlight(element)"
+        ></p>
+      </div>
+      <!--datalist id="locations">
+        <option v-for="(element, index) in searchResult" :key="index">
+          {{ element.formatted }}
+        </option>
+      </datalist-->
+      <button :hidden="input == ''" @click="addCard">Add</button>
+      <button :hidden="input != ''">Edit</button>
     </div>
-    <div class="mainPage__card">
-      <p>placeholder div</p>
+    <div>
+      <div class="mainPage__card" v-for="(card, index) in cards" :key="index"
+      v-html="'<p>'+card.title+'</p>'+
+      '<p>'+requestWeather(index)+'</p>'
+      "
+      >
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import { locationApi, weatherApi } from "../instances";
 
 export default {
   name: "App",
 
   data() {
     return {
-      input: null,
-      inSearch: false,
+      input: "", // linked to inpput field
+      weather: [],
     };
   },
 
   computed: {
+    // data from store
     ...mapGetters({
-      weatherApi: "getWeatherApi",
-      locationApi: "getLocationApi",
+      searchResult: "getSearchLocationResponse", // api search data
+      cards: "getCards", // all cards
     }),
+
+    // prevent dropdown if no input
+    activeResults() {
+      if (this.input != "") {
+        return this.searchResult;
+      }
+      return null;
+    },
+  },
+
+  watch: {
+    // update search result on every input
+    input() {
+      if (this.input.length > 2) {
+        // api needs at least two letters. else error
+        this.requestLocation();
+      }
+    },
   },
 
   methods: {
-    // FOR TESTING
-    testLogWeatherApiBuild() {
-      this.$store.commit({
-        type: "createWeatherAPI",
-        lat: "47.376888",
-        lon: "8.541694",
-        include: "daily",
+    // loaction api interface
+    requestLocation() {
+      locationApi({
+        params: {
+          q: this.input,
+        },
+      }).then((response) => {
+        this.$store.commit({
+          type: "storeSearchResult",
+          results: response.data.results,
+        });
       });
-      console.log(this.weatherApi);
     },
 
-    testLogLocationApiBuild() {
+    requestWeather(index) {
+      const activeCard = this.cards[index]
+      weatherApi({
+        params: {
+          lat: activeCard.lat,
+          lon: activeCard.lng,
+          exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
+        },
+      }).then((response) => {
+        this.weather[index] = response.data.current.weather[0].description
+      })
+      return this.weather[index]
+    },
+
+    // highlight the active input in search result
+    highlight(element) {
+      //const serializedInput = new RegExp(this.input)
+      // PREVENT XSS !
+      if (element != null) {
+        const string = element.formatted;
+        return string.replace(
+          this.input,
+          "<strong>" + this.input + "</strong>"
+        );
+      }
+    },
+
+    addCard() {
       this.$store.commit({
-        type: "createLocationAPI",
-        input: this.input,
+        type: "addCard",
       });
-      console.log(this.locationApi);
+      this.input = ""; // reset input
+    },
+
+    // select from the dropdown
+    selectElement(index) {
+      this.input = this.searchResult[index].formatted;
     },
   },
 };
 </script>
 
 <style>
-@import '../assets/view-mainPage.css';
+@import "../assets/view-mainPage.css";
 </style>
