@@ -1,6 +1,6 @@
 <template>
-  <div class="mainPage">
-    <div class="mainPage__container">
+  <div class="main-page">
+    <div class="main-page__container">
       <input
         class="container__searchbar"
         type="text"
@@ -151,7 +151,8 @@ export default {
     },
 
     addCard() {
-      localStorage.setItem('')
+      localStorage.setItem('cards', this.cards)
+
       this.$store.commit({
         type: "addCard",
       });

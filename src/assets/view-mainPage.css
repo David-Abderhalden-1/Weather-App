@@ -6,7 +6,7 @@ body {
   background: var(--background);
   padding: 20px;
   background-image: url('./img/anime-sky.jpg');
-  background-size: 390px 844px;
+  background-size: cover;
 }
 
 
