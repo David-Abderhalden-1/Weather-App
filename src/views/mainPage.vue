@@ -2,7 +2,6 @@
   <div class="mainPage">
     <div class="mainPage__container">
       <input
-        list="locations"
         class="container__searchbar"
         type="text"
         placeholder="Search"
@@ -18,21 +17,26 @@
           v-html="highlight(element)"
         ></p>
       </div>
-      <!--datalist id="locations">
-        <option v-for="(element, index) in searchResult" :key="index">
-          {{ element.formatted }}
-        </option>
-      </datalist-->
-      <button :hidden="input == ''" @click="addCard">Add</button>
-      <button :hidden="input != ''">Edit</button>
-    </div>
-    <div>
-      <div class="mainPage__card" v-for="(card, index) in cards" :key="index"
-      v-html="'<p>'+card.title+'</p>'+
-      '<p>'+requestWeather(index)+'</p>'
-      "
+      <button
+        class="container__edit-btn"
+        v-if="input == ''"
+        @click="inEdit = !inEdit"
       >
-      </div>
+        Edit
+      </button>
+      <button
+        class="container__add-btn"
+        v-if="input != ''"
+        @click="addCard"
+      >
+        Add
+      </button>
+    </div>
+    <div class="main-page__container2">
+        <div class="conteiner2__city-loop" v-for="(card, index) in cards" :key="index">
+          <weather-card class="city-loop__comp" :cityName="card.title" cityTemp="20" :cityWeather="requestWeather(index)"></weather-card>
+          <button v-if="inEdit" @click="deleteCard" class="city-loop__del-btn">--</button>
+        </div>
     </div>
   </div>
 </template>
@@ -40,14 +44,18 @@
 <script>
 import { mapGetters } from "vuex";
 import { locationApi, weatherApi } from "../instances";
+import weatherCard from '@/components/weatherCard.vue';
+
 
 export default {
-  name: "App",
+  components: { weatherCard },
+  name: 'App',
 
   data() {
     return {
-      input: "", // linked to inpput field
+      input: "", // linked to input field
       weather: [],
+      inEdit: false
     };
   },
 
@@ -56,6 +64,10 @@ export default {
     ...mapGetters({
       searchResult: "getSearchLocationResponse", // api search data
       cards: "getCards", // all cards
+      /*weatherApi: 'getWeatherApi',
+      locationApi: 'getLocationApi',
+      cities: 'getCities'
+      */
     }),
 
     // prevent dropdown if no input
@@ -130,6 +142,9 @@ export default {
     selectElement(index) {
       this.input = this.searchResult[index].formatted;
     },
+    deleteCard(index) {
+      console.log('lol');
+    }
   },
 };
 </script>

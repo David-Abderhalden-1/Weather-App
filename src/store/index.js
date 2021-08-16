@@ -7,6 +7,32 @@ export const store = createStore({
 
         searchLocationResponse: {},         // tmp search result storage
         cards: [],          // all active cards.
+
+// ---------------TEST DATA-------------------
+        cities: [
+          {
+            name: 'Zürich',
+            temperature: 26,
+            weather: 'cloudy',
+            lat: 57.38,
+            lon: 85.84
+          },
+          {
+            name: 'Bern',
+            temperature: 29,
+            weather: 'sunny',
+            lat: 58.38,
+            lon: 86.84
+          },
+          {
+            name: 'Genf',
+            temperature: 17,
+            weather: 'rain',
+            lat: 58.38,
+            lon: 86.84
+          },
+        ]
+// -------------------------------------------
     },
     getters: {
         getSearchLocationResponse(state) {
@@ -15,6 +41,18 @@ export const store = createStore({
         getCards(state) {
             return state.cards
         },
+
+        // ----------TEST DATA -------
+        getLocationApi(state) {
+            return state.locationApi
+        },
+
+        
+        getCities(state){
+          return state.cities;
+        }
+        // -------------------------
+
     },
     mutations: {
         // results from search of the location api interface are stored

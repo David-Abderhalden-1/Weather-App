@@ -4,32 +4,31 @@ strong{
 
 body {
   background: var(--background);
-  padding: 5px;
+  padding: 20px;
+  background-image: url('./img/anime-sky.jpg');
+  background-size: cover;
 }
 
-.mainPage {
-  max-width: 390px;
+
+.main-page {
+  max-width: 690px;
   margin: 0 auto;
-  height: 1000px;
 }
 
-.mainPage__container {
-  position: relative;
-  max-width: 300px;
-  margin: 20px auto;
+.main-page__container {
+  max-width: 650px;
+  margin: 10px auto;
 }
 
 .container__searchbar {
   width: 79%;
-  height: 25px;
+  height: 40px;
   margin-right: 1%;
   padding: 10px;
   border-radius: 5px;
   border: none;
   outline: none;
-  background-color: #fff;
 }
-
 
 .dropdown__text:hover{
   background-color: lightgray;
@@ -49,46 +48,121 @@ body {
   padding: 5px;
 }
 
-.mainPage__container__addBtn {
+
+.container__searchbar:focus {
+  outline: 2px solid var(--accent2);
+}
+
+.container__add-btn {
   width: 19%;
-  height: 25px;
+  height: 40px;
   margin-left: 1%;
   border-radius: 5px;
-  /*border: 2px solid var(--grey);*/
   border: none;
   display: inline-block;
   transition: all 0.4s ease 0s;
 }
 
-.mainPage__container__addBtn:hover {
+.container__add-btn:hover {
   color: #ffffff;
   background: var(--niceGreen);
   border-color: var(--niceGreen);
   transition: 0.2s ease-out;
 }
 
-.mainPage__container__editBtn {
+.container__edit-btn {
   width: 19%;
-  height: 25px;
+  height: 40px;
   margin-left: 1%;
   border-radius: 5px;
-  /*border: 2px solid var(--grey);*/
+  border: 2px solid var(--grey);
   border: none;
   display: inline-block;
   transition: all 0.4s ease 0s;
 }
 
-.mainPage__container__editBtn:hover {
+.container__edit-btn:hover {
   color: #ffffff;
   background: var(--accent2);
   border-color: var(--accent2);
   transition: 0.2s ease-out;
 }
 
-.mainPage__card {
-  max-width: 300px;
-  height: 50px;
-  background-color: var(--foreground);
-  margin: 10px auto;
+.main-page__container2 {
+  height: 734px;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.main-page__container2::-webkit-scrollbar {
+  display: none;
+}
+
+.conteiner2__city-loop{
+  display: flex;
+  align-items: center;
+}
+
+.city-loop__comp {
+  width: 100%;
+}
+
+.comp__card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 650px;
+  height: 70px;
+  background-color: var(--cardBg);
+  margin: 20px auto;
+  border: 2px solid white;
   border-radius: 5px;
+  color: white;
+  transition: background, color 0.2s ease-out;
+}
+
+.comp__card:hover{
+  background: rgba(247, 230, 173, 0.4);
+  color: white;
+  border: 2px solid rgb(247, 230, 173);
+}
+
+.card__city{
+  margin: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card__city-info{
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 100px;
+  justify-content: space-between;
+}
+
+.city-info__img{
+  height: 64px;
+}
+
+a{
+  text-decoration: none;
+}
+
+.city-loop__del-btn {
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100px;
+  color: var(--lightRed);
+  border: 2px solid var(--lightRed);
+  background: none;
+}
+
+.city-loop__del-btn:hover {
+  background: var(--lightRed);
+  color: white;
 }
