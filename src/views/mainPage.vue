@@ -23,7 +23,8 @@
           {{ element.formatted }}
         </option>
       </datalist-->
-      <button @click="addCard">Add</button>
+      <button :hidden="input == ''" @click="addCard">Add</button>
+      <button :hidden="input != ''">Edit</button>
     </div>
     <div>
       <div class="mainPage__card" v-for="(card, index) in cards" :key="index"
