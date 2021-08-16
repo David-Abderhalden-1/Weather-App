@@ -99,9 +99,11 @@ body {
   display: none;
 }
 
-.conteiner2__city-loop{
+.container2__city-loop{
   display: flex;
   align-items: center;
+  max-width: 650px;
+  margin: 0 auto;
 }
 
 .city-loop__comp {
