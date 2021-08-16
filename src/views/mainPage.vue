@@ -6,6 +6,7 @@
         type="text"
         placeholder="Search"
         v-model="input"
+        @click="inEdit = false"
         @keypress.enter="addCard"
       />
       <div class="container__dropdown">
@@ -35,7 +36,7 @@
     <div class="main-page__container2">
         <div class="conteiner2__city-loop" v-for="(card, index) in cards" :key="index">
           <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="requestTemperatur(index)" :cityWeather="requestWeather(index)"></weather-card>
-          <button v-if="inEdit" @click="deleteCard" class="city-loop__del-btn">--</button>
+          <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
         </div>
     </div>
   </div>
@@ -45,6 +46,7 @@
 import { mapGetters } from "vuex";
 import { locationApi, weatherApi } from "../instances";
 import weatherCard from '@/components/weatherCard.vue';
+import { toTitleCase } from '../globalFunctions';
 
 
 export default {
@@ -65,10 +67,6 @@ export default {
     ...mapGetters({
       searchResult: "getSearchLocationResponse", // api search data
       cards: "getCards", // all cards
-      /*weatherApi: 'getWeatherApi',
-      locationApi: 'getLocationApi',
-      cities: 'getCities'
-      */
     }),
 
     // prevent dropdown if no input
@@ -129,7 +127,6 @@ export default {
         },
       }).then((response) => {
         const kelvin = response.data.current.temp
-        console.log(kelvin)
         const gradCelsius = (kelvin-273.15)
         this.temperature[index] = gradCelsius.toFixed(2)
       })
@@ -142,10 +139,11 @@ export default {
       //const serializedInput = new RegExp(this.input)
       // PREVENT XSS !
       if (element != null) {
-        const string = element.formatted;
+        const string = toTitleCase(element.formatted);
+        const formattedInput = toTitleCase(this.input);
         return string.replace(
-          this.input,
-          "<strong>" + this.input + "</strong>"
+          formattedInput,
+          "<strong>" + formattedInput + "</strong>"
         );
       }
     },
@@ -164,7 +162,10 @@ export default {
       this.input = this.searchResult[index].formatted;
     },
     deleteCard(index) {
-      console.log('lol');
+      this.$store.commit({
+        type: 'deleteCard',
+        index: index,
+      })
     }
   },
 };

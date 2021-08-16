@@ -16,6 +16,7 @@ body {
 }
 
 .main-page__container {
+  position: relative;
   max-width: 650px;
   margin: 10px auto;
 }
