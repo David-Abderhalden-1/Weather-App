@@ -35,7 +35,6 @@ body {
   height: 40px;
   margin-left: 1%;
   border-radius: 5px;
-  /*border: 2px solid var(--grey);*/
   border: none;
   display: inline-block;
   transition: all 0.4s ease 0s;
@@ -69,17 +68,27 @@ body {
 .main-page__container2 {
   height: 734px;
   overflow-y: scroll;
-  scrollbar-width: none; /* firefox */
+  scrollbar-width: none;
 }
 
 .main-page__container2::-webkit-scrollbar {
-  display: none; /* chrome */
+  display: none;
 }
 
-.container2__card {
+.conteiner2__city-loop{
+  display: flex;
+  align-items: center;
+}
+
+.city-loop__comp {
+  width: 100%;
+}
+
+.comp__card {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
   max-width: 650px;
   height: 70px;
   background-color: var(--cardBg);
@@ -90,7 +99,7 @@ body {
   transition: background, color 0.2s ease-out;
 }
 
-.container2__card:hover{
+.comp__card:hover{
   background: rgba(247, 230, 173, 0.4);
   color: white;
   border: 2px solid rgb(247, 230, 173);
@@ -118,4 +127,19 @@ body {
 
 a{
   text-decoration: none;
+}
+
+.city-loop__del-btn {
+  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+  border-radius: 100px;
+  color: var(--lightRed);
+  border: 2px solid var(--lightRed);
+  background: none;
+}
+
+.city-loop__del-btn:hover {
+  background: var(--lightRed);
+  color: white;
 }

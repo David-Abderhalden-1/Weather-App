@@ -1,28 +1,27 @@
 <template>
   <div class="main-page">
     <div class="main-page__container">
-      <input class="container__searchbar" type="text" placeholder="Search" />
+      <input class="container__searchbar" type="text" placeholder="Search" v-model="input" />
       <button
         class="container__edit-btn"
-        v-if="!inSearch"
-        @click="inSearch = true"
+        v-if="input == ''"
+        @click="inEdit = !inEdit"
       >
         Edit
       </button>
       <button
         class="container__add-btn"
-        v-if="inSearch"
+        v-if="input != ''"
         @click="inSearch = false"
       >
         Add
       </button>
     </div>
     <div class="main-page__container2">
-      <router-link to="/Location">
-        <div class="container2__card" v-for="city in cities" :key="city.name">
-          <weather-card :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
+        <div class="conteiner2__city-loop" v-for="(city, index) in cities" :key="index">
+          <weather-card class="city-loop__comp" :cityName="city.name" :cityTemp="city.temperature" :cityWeather="city.weather"></weather-card>
+          <button v-if="inEdit" @click="deleteCard" class="city-loop__del-btn">--</button>
         </div>
-      </router-link>
     </div>
   </div>
 </template>
@@ -37,8 +36,9 @@ export default {
 
   data() {
     return {
-      input: null,
+      input: "",
       inSearch: false,
+      inEdit: false
     };
   },
 
@@ -69,6 +69,9 @@ export default {
       });
       console.log(this.locationApi);
     },
+    deleteCard(index) {
+      console.log('lol');
+    }
   },
 };
 </script>
