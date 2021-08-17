@@ -1,6 +1,6 @@
-html,
-body,
-main {
+.main {
+    background-size: cover;
+    background-color: black;
     margin: 0px;
     padding: 0;
     height: 844px;

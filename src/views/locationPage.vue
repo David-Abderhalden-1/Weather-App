@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="main">
     <location-page-head
       :title="currentCard.title"
       :currentTemperature="currentTemperature"
