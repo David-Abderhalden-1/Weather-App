@@ -7,14 +7,18 @@ export const store = createStore({
         //exclude: [],
         searchLocationResponse: {}, // tmp search result storage
         cards: [], // all active cards.
+        loaded: false,
     },
     getters: {
         getSearchLocationResponse(state) {
             return state.searchLocationResponse
         },
         getCards(state) {
-            if(state.cards.length > 0) return state.cards
-            return JSON.parse(localStorage.getItem('cards'))
+            if(state.cards.length == 0 && !state.loaded) { 
+                state.cards = JSON.parse(localStorage.getItem('cards'))
+                state.loaded = true
+             }
+            return state.cards
         },
 
     },

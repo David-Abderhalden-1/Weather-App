@@ -28,6 +28,12 @@ export default {
     this.getWeeklyData();
   },
 
+  computed: {
+    ...mapGetters({
+      cards: 'getCards',
+    }),
+  },
+
   data() {
     return {
       currentCard: this.cards[this.$route.params.id],
@@ -108,22 +114,17 @@ export default {
 
     getWeekdayByIndex(apivalueindex) {
       let today = new Date().getDay();
-      let weeklyindex = today + apivalueindex
-      if(apivalueindex == 0){
-        return 'Heute'
+      let weeklyindex = today + apivalueindex;
+      if (apivalueindex == 0) {
+        return "Heute";
       }
-      if(weeklyindex>= 7){
-        weeklyindex = weeklyindex -7
+      if (weeklyindex >= 7) {
+        weeklyindex = weeklyindex - 7;
       }
       return this.weekDays[weeklyindex];
     },
   },
 
-  computed: {
-    ...mapGetters({
-      cards: "getCards",
-    }),
-  },
   components: {
     locationPageHead,
     locationPageHourlyForecast,
