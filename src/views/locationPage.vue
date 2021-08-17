@@ -22,6 +22,10 @@ import { weatherApi } from "../instances";
 export default {
   name: "App",
 
+  beforeMount() {
+    this.currentCard = this.cards[this.$route.params.id];
+  },
+
   mounted() {
     this.getHourlyData();
     this.getCurrentData();
@@ -36,7 +40,7 @@ export default {
 
   data() {
     return {
-      currentCard: this.cards[this.$route.params.id],
+      currentCard: null,
       currentTemperature: null,
       weekDays: [
         "Sonntag",
