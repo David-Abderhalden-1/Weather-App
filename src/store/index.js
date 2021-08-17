@@ -1,35 +1,93 @@
 import { createStore } from 'vuex'
+import { weatherApi } from '../instances'
 
 export const store = createStore({
     state: {
-        weatherApiRoute: 'https://api.openweathermap.org/data/2.5/onecall?',
-        weatherApiKey: 'cdb3d2c6335926ea02db7e9f0393d50b',
-        weatherApi: null,
-        excludeAll: ['minutely', 'hourly', 'current', 'daily'],
-        exclude: [],
-
-        locationApiRoute: 'https://api.opencagedata.com/geocode/v1/json?',
-        locationApiKey: '3704786e3b59476984ceb60d61cf5ab7',
-        locationApi: null,
-        locationApiAmount: 10,
+        //excludeAll: ['minutely', 'hourly', 'current', 'daily'],     // all weather api 'exclude' param options
+        //exclude: [],
+        searchLocationResponse: {}, // tmp search result storage
+        cards: [], // all active cards.
+        loaded: false,
     },
     getters: {
-        getWeatherApi(state) {
-            return state.weatherApi
+        getSearchLocationResponse(state) {
+            return state.searchLocationResponse
+        },
+        getCards(state) {
+            if(state.cards.length == 0 && !state.loaded) { 
+                state.cards = JSON.parse(localStorage.getItem('cards')) || []
+                state.loaded = true
+             }
+            return state.cards
         },
 
-        getLocationApi(state) {
-            return state.locationApi
-        }
     },
     mutations: {
-        createWeatherAPI(state, payload) {
-            state.exclude = state.excludeAll.filter(word => word != payload.include);
-            state.weatherApi = `${state.weatherApiRoute}lat=${payload.lat}&lon=${payload.lon}&exclude=${state.exclude}&appid=${state.weatherApiKey}`
+        // results from search of the location api interface are stored
+        storeSearchResult(state, payload) {
+            state.searchLocationResponse = payload.results;
         },
 
-        createLocationAPI(state, payload) {
-            state.locationApi = `${state.locationApiRoute}q=${payload.input}&no_annotations=1&limit=${state.locationApiAmount}&key=${state.locationApiKey}`
+        async addCard(state) {
+            // Top result is reformatted and stored as card
+            try {
+                const location = state.searchLocationResponse[0]
+
+                // requestWeather
+                let weatherId =  
+                await weatherApi({
+                    params: {
+                    lat: location.geometry.lat,
+                    lon: location.geometry.lng,
+                    exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
+                    },
+                })
+                weatherId = weatherId.data.current.weather[0].id
+              
+                // requestTemperatur
+                let gradCelsius = 
+                await weatherApi({
+                    params: {
+                    lat: location.geometry.lat,
+                    lon: location.geometry.lng,
+                    exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
+                    },
+                })
+                gradCelsius = gradCelsius.data.current.temp
+
+                // build new Card
+                const cardBuilder = {
+                        title: location.formatted, // location preview name
+                        weatherId: weatherId,
+                        temp: gradCelsius,
+                        lat: location.geometry.lat, // latitude
+                        lng: location.geometry.lng, // longitude
+                    }
+                    // Prevent redundant cards
+                if (!state.cards.some(card => card["title"] === cardBuilder.title)) {
+                    state.cards.push(cardBuilder)
+                } else {
+                    alert("card has already been added.") // probably change
+                }
+            } catch (error) {
+                return 0
+            }
+            state.searchLocationResponse = {} // reset the search results to null
+            localStorage.setItem('cards', JSON.stringify(state.cards)); // add card to local storage
+        },
+
+        deleteCard(state, payload) {
+          state.cards.splice(payload.index, 1)
+        },
+    },
+    actions: {
+        /*
+        getExcluded(state, payload) {
+          console.log(payload.include)
+          const index = state.excludeAll.indexOf('current')
+          state.exclude = state.excludeAll.splice(index)
+          return state.exclude
         }
-    },  
+        */
+    }
 })

@@ -7,10 +7,14 @@
   padding: 0;
   --background: #261c2c;
   --foreground: #3e2c41;
-  --accent1: #5c527f;
+  /*--accent1: #5c527f;*/
+  --accent1: #334257;
+  --cardBg: rgba(255,255,255,0.3);
   --accent2: #6e85b2;
   --niceGreen: #50cb93;
+  --niceGreenOpacity: rgba(80,203,147,0.3);
   --lightRed: #ff4848;
   --darkGrey: #494949;
   --lightGrey: #eee;
+  --screenwith: 390px;
 }
