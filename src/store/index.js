@@ -47,6 +47,7 @@ export const store = createStore({
         },
         deleteCard(state, payload) {
           state.cards.splice(payload.index, 1)
+          console.log(state.cards);
         }
     },
     actions: {

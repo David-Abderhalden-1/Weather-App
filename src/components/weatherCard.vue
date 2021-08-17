@@ -2,7 +2,7 @@
   <router-link to="/location">
     <div class="comp__card">
       <div class="card__city">
-        {{ name }}
+        {{ shortCityName }}
       </div>
       <div class="card__city-info">
         <img class="city-info__img" src="@/assets/img/day.svg" />
@@ -22,11 +22,9 @@ export default {
     }
   },
 
-  created(){
-    if(this.cityName.length > 30){
-      this.name = this.cityName.slice(0, 30) + '...';
-    }else {
-      this.name = this.cityName;
+  computed: {
+    shortCityName() {
+      return this.cityName.length > 30 ? this.cityName.slice(0, 30) + '...' : this.cityName;
     }
   }
 };
