@@ -14,7 +14,7 @@
         <img class="city-info__img" v-if="(weatherId < 603 && weatherId > 599) || (weatherId < 623 && weatherId > 619)" src="@/assets/img/snowy-6.svg" />
         <img class="city-info__img" v-if="weatherId < 617 && weatherId > 610" src="@/assets/img/snowy-day.svg" />
         <img class="city-info__img" v-if="weatherId < 233 && weatherId > 199" src="@/assets/img/thunder.svg" />
-        {{ cityTemp }}°
+        <p v-if="weatherId != undefined">{{ cityTemp }}°</p>
       </div>
     </div>
   </router-link>
