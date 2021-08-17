@@ -72,6 +72,7 @@ export const store = createStore({
                 return 0
             }
             state.searchLocationResponse = {} // reset the search results to null
+            localStorage.setItem('cards', JSON.stringify(state.cards)); // add card to local storage
         },
 
         deleteCard(state, payload) {

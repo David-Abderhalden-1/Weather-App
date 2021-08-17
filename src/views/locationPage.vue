@@ -62,7 +62,7 @@ export default {
         data.forEach((el) => {
           let newHourlyEntity = {
             hour: this.getFormatedTime(el.dt),
-            temp: (el.temp - 273.15).toFixed(0),
+            temp: el.temp.toFixed(1),
           };
           this.hourlyForecast.push(newHourlyEntity);
         });
@@ -77,9 +77,7 @@ export default {
           exclude: "hourly,daily,minutely",
         },
       }).then((response) => {
-        this.currentTemperature = (response.data.current.temp - 273.15).toFixed(
-          2
-        );
+        this.currentTemperature = response.data.current.temp.toFixed(2);
       });
     },
 
@@ -96,8 +94,8 @@ export default {
         data.forEach((el, index) => {
           let newWeeklyEntity = {
             day: this.getWeekdayByIndex(index),
-            max: (el.temp.max - 273.15).toFixed(0),
-            min: (el.temp.min - 273.15).toFixed(0),
+            max: el.temp.max.toFixed(0),
+            min: el.temp.min.toFixed(0),
           };
           this.weeklyForecast.push(newWeeklyEntity);
         });

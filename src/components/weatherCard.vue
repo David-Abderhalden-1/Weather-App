@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{path: '/Location/' + index}">
+  <router-link :to="{path: '/location/' + index}">
     <div class="comp__card">
       <div class="card__city">
         {{ shortCityName }}
