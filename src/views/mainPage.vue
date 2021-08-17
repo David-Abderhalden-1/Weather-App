@@ -137,6 +137,7 @@ export default {
     }
   },
   created() {
+    if(this.cards.length > 0) return
     if(localStorage.getItem('cards')){
       var lsCards = JSON.parse(localStorage.getItem('cards'));
       for(let i = 0; i < lsCards.length; i++) {
