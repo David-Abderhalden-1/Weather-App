@@ -10,56 +10,21 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
-          <tr class="weeklyrowentity">
-            <td class="weeklyrowentity__tabledata">Freitag</td>
-            <td class="weeklyrowentity__tabledata"><i></i></td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">25°</td>
-            <td class="weeklyrowentity__tabledata tabledata__modifier">20°</td>
-          </tr>
+          <location-page-weeklyforecast-element v-for="(daily, index) in weeklyForecast"
+        :key="index" :dailyValue="daily"></location-page-weeklyforecast-element>
         </tbody>
       </table>
     </article>
 </template>
 
 <script>
+import locationPageWeeklyforecastElement from '../components/locationPage-weeklyforecast-element.vue';
 export default {
-    name: 'locationPage-weeklyforecast'
+  components: { locationPageWeeklyforecastElement },
+    name: 'locationPage-weeklyforecast',
+    props: {
+      weeklyForecast:Object
+    }
 }
 </script>
 

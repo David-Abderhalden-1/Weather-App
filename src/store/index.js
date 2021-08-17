@@ -8,11 +8,11 @@ export const store = createStore({
         searchLocationResponse: {}, // tmp search result storage
         cards: [
             //------------TESTDATEN---------------
-            {
-                title: 'Bern',
-                lat: 58.38,
-                lng: 86.84
-            }
+            // {
+            //     title: 'Bern',
+            //     lat: 58.38,
+            //     lng: 86.84
+            // }
             //------------TESTDATEN---------------
         ], // all active cards.
 

@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/Location">
+  <router-link :to="{path: '/Location/' + index}">
     <div class="comp__card">
       <div class="card__city">
         {{ cityName }}
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  props: ['cityName', 'cityTemp', 'cityWeather'],
+  props: ['cityName', 'cityTemp', 'cityWeather', 'index'],
   name: 'App',
 };
 </script>

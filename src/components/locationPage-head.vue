@@ -8,6 +8,7 @@
 <script>
 export default {
   name: "locationPage-head",
+  props: ["title", "currentTemperature"]
 };
 </script>
 

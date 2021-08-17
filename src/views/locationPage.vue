@@ -4,8 +4,12 @@
       :title="currentCard.title"
       :currentTemperature="currentTemperature"
     ></location-page-head>
-    <location-page-hourly-forecast></location-page-hourly-forecast>
-    <location-page-weekly-forecast></location-page-weekly-forecast>
+    <location-page-hourly-forecast
+      :hourlyForecast="hourlyForecast"
+    ></location-page-hourly-forecast>
+    <location-page-weekly-forecast
+      :weeklyForecast="weeklyForecast"
+    ></location-page-weekly-forecast>
   </main>
 </template>
 
@@ -25,12 +29,23 @@ export default {
   mounted() {
     this.getHourlyData();
     this.getCurrentData();
+    this.getWeeklyData();
   },
 
   data() {
     return {
       currentTemperature: null,
+      weekDays: [
+        "Sonntag",
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Sammstag",
+      ],
       hourlyForecast: [],
+      weeklyForecast: [],
     };
   },
 
@@ -44,14 +59,12 @@ export default {
         },
       }).then((response) => {
         let data = response.data.hourly;
-        //console.log(this.getFormatedTime(response.data.hourly[0].dt));
         data.forEach((el) => {
           let newHourlyEntity = {
             hour: this.getFormatedTime(el.dt),
             temp: (el.temp - 273.15).toFixed(0),
           };
-          this.hourlyForecast.push(newHourlyEntity)
-          console.log(this.hourlyForecast)
+          this.hourlyForecast.push(newHourlyEntity);
         });
       });
     },
@@ -70,11 +83,44 @@ export default {
       });
     },
 
+    getWeeklyData() {
+      weatherApi({
+        params: {
+          lat: this.currentCard.lat,
+          lon: this.currentCard.lng,
+          exclude: "hourly,minutely,current",
+        },
+      }).then((response) => {
+        console.log(response.data.daily);
+        let data = response.data.daily;
+        data.forEach((el, index) => {
+          let newWeeklyEntity = {
+            day: this.getWeekdayByIndex(index),
+            max: (el.temp.max - 273.15).toFixed(0),
+            min: (el.temp.min - 273.15).toFixed(0),
+          };
+          this.weeklyForecast.push(newWeeklyEntity);
+        });
+      });
+    },
+
     getFormatedTime(unixTime) {
       let date = new Date(unixTime * 1000);
       let hours = date.getHours();
       let minutes = "0" + date.getMinutes();
       return hours + ":" + minutes.substr(-2);
+    },
+
+    getWeekdayByIndex(apivalueindex) {
+      let today = new Date().getDay();
+      let weeklyindex = today + apivalueindex
+      if(apivalueindex == 0){
+        return 'Heute'
+      }
+      if(weeklyindex>= 7){
+        weeklyindex = weeklyindex -7
+      }
+      return this.weekDays[weeklyindex];
     },
   },
 
