@@ -149,12 +149,12 @@ export default {
     },
 
     addCard() {
-      localStorage.setItem('cards', this.cards)
-
       this.$store.commit({
         type: "addCard",
       });
       this.input = ""; // reset input
+      console.log(this.cards)
+      localStorage.setItem('cards', JSON.stringify(this.cards));
     },
 
     // select from the dropdown
@@ -166,8 +166,18 @@ export default {
         type: 'deleteCard',
         index: index,
       })
+      console.log(index)
+      localStorage.setItem('cards', JSON.stringify(this.cards));
     }
   },
+  created() {
+    if(localStorage.getItem('cards')){
+      var lsCards = JSON.parse(localStorage.getItem('cards'));
+      for(let i = 0; i < lsCards.length; i++) {
+        this.cards.push(lsCards[i])
+      }
+    }
+  }
 };
 </script>
 
