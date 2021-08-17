@@ -118,7 +118,7 @@ body {
   max-width: 650px;
   height: 70px;
   background-color: var(--cardBg);
-  margin: 20px auto;
+  margin: 10px auto;
   border: 2px solid white;
   border-radius: 5px;
   color: white;
@@ -135,6 +135,7 @@ body {
   margin: 10px;
   font-size: 20px;
   font-weight: 600;
+  width: 60%;
 }
 
 .card__city-info{
@@ -159,7 +160,7 @@ a{
   margin-left: 10px;
   height: 30px;
   width: 30px;
-  border-radius: 100px;
+  border-radius: 10px;
   color: var(--lightRed);
   border: 2px solid var(--lightRed);
   background: none;

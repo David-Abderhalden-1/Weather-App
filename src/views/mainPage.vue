@@ -35,8 +35,9 @@
     </div>
     <div class="main-page__container2">
         <div class="container2__city-loop" v-for="(card, index) in cards" :key="index">
-          <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="requestTemperatur(index)" :cityWeather="requestWeather(index)"></weather-card>
-          <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
+          <!--<weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="requestTemperatur(index)" :cityWeather="requestWeather(index)"></weather-card>-->
+          <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="20" :cityWeather="rain"></weather-card>
+          <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">+</button>
         </div>
     </div>
   </div>
@@ -149,12 +150,12 @@ export default {
     },
 
     addCard() {
-      localStorage.setItem('cards', this.cards)
-
       this.$store.commit({
         type: "addCard",
       });
       this.input = ""; // reset input
+      console.log(this.cards)
+      localStorage.setItem('cards', JSON.stringify(this.cards));
     },
 
     // select from the dropdown
@@ -166,8 +167,17 @@ export default {
         type: 'deleteCard',
         index: index,
       })
+      localStorage.setItem('cards', JSON.stringify(this.cards));
     }
   },
+  created() {
+    if(localStorage.getItem('cards')){
+      var lsCards = JSON.parse(localStorage.getItem('cards'));
+      for(let i = 0; i < lsCards.length; i++) {
+        this.cards.push(lsCards[i])
+      }
+    }
+  }
 };
 </script>
 

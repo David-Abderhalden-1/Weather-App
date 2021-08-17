@@ -2,12 +2,10 @@
   <router-link to="/location">
     <div class="comp__card">
       <div class="card__city">
-        {{ cityName }}
+        {{ name }}
       </div>
       <div class="card__city-info">
-        <img class="city-info__img" v-if="cityWeather === 'broken clouds'" src="@/assets/img/cloudy.svg" />
-        <img class="city-info__img" v-if="cityWeather === 'sunny'" src="@/assets/img/day.svg" />
-        <img class="city-info__img" v-if="cityWeather === 'light intensity shower rain'" src="@/assets/img/rainy-6.svg" />
+        <img class="city-info__img" src="@/assets/img/day.svg" />
         {{ cityTemp }}°
       </div>
     </div>
@@ -18,6 +16,19 @@
 export default {
   props: ['cityName', 'cityTemp', 'cityWeather'],
   name: 'App',
+  data() {
+    return {
+      name: ''
+    }
+  },
+
+  created(){
+    if(this.cityName.length > 30){
+      this.name = this.cityName.slice(0, 30) + '...';
+    }else {
+      this.name = this.cityName;
+    }
+  }
 };
 </script>
 
