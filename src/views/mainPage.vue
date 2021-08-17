@@ -78,10 +78,6 @@ export default {
     },
   },
 
-  beforeMount(){
-    console.log(this.cards)
-  },
-
   watch: {
     // update search result on every input
     input() {

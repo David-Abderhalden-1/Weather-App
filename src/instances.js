@@ -12,7 +12,7 @@ const weatherApi = axios.create({
     // hardcoded parameters
     method: "GET",
     params: {
-        appid: '3e2ff5926ddf3c89f2c9dfdc5fafb16e',        // API key in required
+        appid: process.env.VUE_APP_WEATHER_KEY,        // API key in required
         units: 'metric',
     }
 })
@@ -25,7 +25,7 @@ const locationApi = axios.create({
     method: "GET",
     // hardcoded parameters
     params: {
-        key: '3704786e3b59476984ceb60d61cf5ab7', // API key in required
+        key: process.env.VUE_APP_LOCATION_KEY, // API key in required
         no_annotations: 1, // less background data
         limit: 10, // amount of response objects
         _type: 'city',
