@@ -15,7 +15,7 @@ export const store = createStore({
         },
         getCards(state) {
             if(state.cards.length == 0 && !state.loaded) { 
-                state.cards = JSON.parse(localStorage.getItem('cards'))
+                state.cards = JSON.parse(localStorage.getItem('cards')) || []
                 state.loaded = true
              }
             return state.cards
