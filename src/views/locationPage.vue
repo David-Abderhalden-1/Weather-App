@@ -18,13 +18,9 @@ import locationPageHead from "../components/locationPage-head.vue";
 import locationPageHourlyForecast from "../components/locationPage-hourlyforecast.vue";
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
-import { locationApi, weatherApi } from "../instances";
+import { weatherApi } from "../instances";
 export default {
   name: "App",
-
-  beforeCreate() {
-    this.$store.commit("setCurrentCard", { cardId: this.$route.params.id });
-  },
 
   mounted() {
     this.getHourlyData();
@@ -34,6 +30,7 @@ export default {
 
   data() {
     return {
+      currentCard: this.cards[this.$route.params.id],
       currentTemperature: null,
       weekDays: [
         "Sonntag",
@@ -42,7 +39,7 @@ export default {
         "Mittwoch",
         "Donnerstag",
         "Freitag",
-        "Sammstag",
+        "Samstag",
       ],
       hourlyForecast: [],
       weeklyForecast: [],
@@ -124,7 +121,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      currentCard: "getCurrentCard",
+      cards: "getCards",
     }),
   },
   components: {

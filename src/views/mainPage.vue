@@ -35,7 +35,7 @@
     </div>
     <div class="main-page__container2">
         <div class="conteiner2__city-loop" v-for="(card, index) in cards" :key="index">
-          <weather-card class="city-loop__comp" :index="index" :cityName="card.title" :cityTemp="card.temp" :weatherId="card.weatherId"></weather-card>
+          <weather-card class="city-loop__comp" :index="index" :card="card"></weather-card>
           <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
         </div>
     </div>
@@ -76,6 +76,10 @@ export default {
       }
       return null;
     },
+  },
+
+  beforeMount(){
+    console.log(this.cards)
   },
 
   watch: {

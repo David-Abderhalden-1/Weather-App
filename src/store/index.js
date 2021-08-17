@@ -5,7 +5,6 @@ export const store = createStore({
     state: {
         //excludeAll: ['minutely', 'hourly', 'current', 'daily'],     // all weather api 'exclude' param options
         //exclude: [],
-        currentCard: null,
         searchLocationResponse: {}, // tmp search result storage
         cards: [], // all active cards.
     },
@@ -14,11 +13,9 @@ export const store = createStore({
             return state.searchLocationResponse
         },
         getCards(state) {
-            return state.cards
+            if(state.cards.length > 0) return state.cards
+            return JSON.parse(localStorage.getItem('cards'))
         },
-        getCurrentCard(state) {
-            return state.cards[state.currentCard]
-        }
 
     },
     mutations: {
@@ -78,10 +75,6 @@ export const store = createStore({
         deleteCard(state, payload) {
           state.cards.splice(payload.index, 1)
         },
-
-        setCurrentCard(state, payload) {
-            state.currentCard = payload.cardId
-        }
     },
     actions: {
         /*
