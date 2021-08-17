@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/Location">
+  <router-link to="/location">
     <div class="comp__card">
       <div class="card__city">
         {{ cityName }}
