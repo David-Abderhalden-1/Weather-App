@@ -35,7 +35,7 @@
     </div>
     <div class="main-page__container2">
         <div class="conteiner2__city-loop" v-for="(card, index) in cards" :key="index">
-          <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="requestTemperatur(index)" :weatherId="requestWeather(index)"></weather-card>
+          <weather-card class="city-loop__comp" :cityName="card.title" :cityTemp="card.temp" :weatherId="card.weatherId"></weather-card>
           <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
         </div>
     </div>
@@ -103,37 +103,6 @@ export default {
       });
     },
 
-    requestWeather(index) {
-      const activeCard = this.cards[index]
-      weatherApi({
-        params: {
-          lat: activeCard.lat,
-          lon: activeCard.lng,
-          exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
-        },
-      }).then((response) => {
-        this.weather[index] = response.data.current.weather[0].id
-      })
-      return this.weather[index]
-    },
-
-      requestTemperatur(index) {
-      const activeCard = this.cards[index]
-      weatherApi({
-        params: {
-          lat: activeCard.lat,
-          lon: activeCard.lng,
-          exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
-        },
-      }).then((response) => {
-        const kelvin = response.data.current.temp
-        const gradCelsius = (kelvin-273.15)
-        this.temperature[index] = gradCelsius.toFixed(2)
-      })
-      return this.temperature[index]
-    },
-
-
     // highlight the active input in search result
     highlight(element) {
       //const serializedInput = new RegExp(this.input)
@@ -153,8 +122,8 @@ export default {
         type: "addCard",
       });
       this.input = ""; // reset input
-      console.log(this.cards)
       localStorage.setItem('cards', JSON.stringify(this.cards));
+      console.log(this.cards)
     },
 
     // select from the dropdown
@@ -166,7 +135,6 @@ export default {
         type: 'deleteCard',
         index: index,
       })
-      console.log(index)
       localStorage.setItem('cards', JSON.stringify(this.cards));
     }
   },

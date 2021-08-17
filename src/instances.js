@@ -12,7 +12,8 @@ const weatherApi = axios.create({
     // hardcoded parameters
     method: "GET",
     params: {
-        appid: 'd7740f17fc8f2205e7d93499df182dff',        // API key in required
+        appid: 'c9d1e15767ae6baaa295a2528bf68403',        // API key in required
+        units: 'metric',
     }
 })
 
@@ -24,9 +25,9 @@ const locationApi = axios.create({
     method: "GET",
     // hardcoded parameters
     params: {
-        key: '3704786e3b59476984ceb60d61cf5ab7',        // API key in required
-        no_annotations: 1,  // less background data
-        limit: 10,          // amount of response objects
+        key: '3704786e3b59476984ceb60d61cf5ab7', // API key in required
+        no_annotations: 1, // less background data
+        limit: 10, // amount of response objects
         _type: 'city',
     }
 })
