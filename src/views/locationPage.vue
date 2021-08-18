@@ -24,6 +24,9 @@ export default {
 
   beforeMount() {
     this.currentCard = this.cards[this.$route.params.id];
+    if (this.currentCard == null) {
+      window.location.href = "/"
+    }
   },
 
   mounted() {
