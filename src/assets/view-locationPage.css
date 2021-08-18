@@ -18,9 +18,19 @@
 }
 
 .h1location {
-    font-size: 80px;
-    padding: 0;
-    margin: 0;
+    font-size: 60px;
+    word-wrap: break-word;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.h3location {
+    word-wrap: break-word;
+    text-align: center;
+    font-size: 40px;
+    padding-top: 3%;
+    margin-top: 0px;
 }
 
 .h2temperature {
