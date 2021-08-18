@@ -36,7 +36,7 @@
     <div class="main-page__container2">
         <div class="container2__city-loop" v-for="(card, index) in cards" :key="index">
           <weather-card class="city-loop__comp" :index="index" :card="card"></weather-card>
-          <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">--</button>
+          <button v-if="inEdit" @click="deleteCard(index)" class="city-loop__del-btn">-</button>
         </div>
     </div>
   </div>
@@ -127,6 +127,7 @@ export default {
     // select from the dropdown
     selectElement(index) {
       this.input = this.searchResult[index].formatted;
+      this.addCard(index)
     },
     deleteCard(index) {
       this.$store.commit({
