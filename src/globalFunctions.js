@@ -11,19 +11,6 @@ function splitName(string) {
     let newString = string.split(', ')
     let result = []
     result.push(newString[0], newString[1])
-    /*
-    result.forEach(title => {
-        if(title != undefined)
-        if (title.length > 20) {
-            let newTitle = ''
-            for (let i = 0; i < 20; i++) {
-                newTitle += title[i]
-            }
-            title = newTitle + "..."
-        }
-    });
-    */
-    console.log(result)
     return result
 }
 
