@@ -28,11 +28,15 @@ export const store = createStore({
             state.searchLocationResponse = payload.results;
         },
 
-        async addCard(state) {
-            // Top result is reformatted and stored as card
-            try {
-                const location = state.searchLocationResponse[0]
+        async addCard(state, payload) {
+            let location = state.searchLocationResponse[0]
 
+            // Top result is reformatted and stored as card
+            if(payload.resultIndex){
+                location = state.searchLocationResponse[payload.resultIndex]
+            }
+
+            try {
                 // requestWeather
                 let weatherId =  
                 await weatherApi({
