@@ -71,14 +71,16 @@ export default {
 
 ```sudo nano /etc/apache2/apache2.conf``` open Apache config file with your prefered editor
 
-```<Directory /var/www/html/>
+```
+<Directory /var/www/html/>
         RewriteEngine On
         RewriteBase /
         RewriteRule ^index\.html$ - [L]
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteCond %{REQUEST_FILENAME} !-d
         RewriteRule . /index.html [L]
-</Directory>```
+</Directory>
+```
 
 Insert this Block to enable reload with vue js without getting an 404 error
 
