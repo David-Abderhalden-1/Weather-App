@@ -25,9 +25,9 @@ export default {
   beforeMount() {
     this.currentCard = this.cards[this.$route.params.id];
     if (this.currentCard == null) {
-      let currenturl = window.location.href
-      let domain = (new URL(currenturl))
-      window.location.href = domain.hostname + "/" //bug wird 2 mal komisch geladen wenn mit domain und url siehe oben im code
+      // let currenturl = window.location.href
+      // let domain = (new URL(currenturl))
+      window.location.href = "/" //bug wird 2 mal komisch geladen wenn mit domain und url siehe oben im code
     }
   },
 
