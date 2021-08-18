@@ -34,7 +34,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      cards: 'getCards',
+      cards: "getCards",
     }),
   },
 
@@ -66,13 +66,13 @@ export default {
         },
       }).then((response) => {
         let data = response.data.hourly;
-        data.forEach((el) => {
+        for (let i = 0; i < 24; i++) {
           let newHourlyEntity = {
-            hour: this.getFormatedTime(el.dt),
-            temp: el.temp.toFixed(1),
+            hour: this.getFormatedTime(data[i].dt),
+            temp: data[i].temp.toFixed(1),
           };
-          this.hourlyForecast.push(newHourlyEntity);
-        });
+          this.hourlyForecast.push(newHourlyEntity)
+        }
       });
     },
 
