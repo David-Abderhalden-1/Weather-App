@@ -97,6 +97,8 @@ body {
 
 .main-page__container2 {
   height: 734px;
+  max-width: 650px;
+  margin: 0 auto;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -109,7 +111,6 @@ body {
   display: flex;
   align-items: center;
   max-width: 650px;
-  margin: 0 auto;
 }
 
 .city-loop__comp {
