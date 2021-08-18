@@ -32,11 +32,9 @@ export const store = createStore({
             let location = state.searchLocationResponse[0]
 
             // Top result is reformatted and stored as card
-            if(payload.resultIndex === Object){
-                console.log(payload.resultIndex)
+            if(Number.isInteger(payload.resultIndex)){
                 location = state.searchLocationResponse[payload.resultIndex]
             }
-
 
             try {
                 // requestWeather
