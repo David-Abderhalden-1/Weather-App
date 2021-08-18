@@ -1,7 +1,7 @@
 <template>
   <main class="main">
     <location-page-head
-      :title="currentCard.title"
+      :title="splitTitle"
       :currentTemperature="currentTemperature"
     ></location-page-head>
     <location-page-hourly-forecast
@@ -19,8 +19,16 @@ import locationPageHourlyForecast from "../components/locationPage-hourlyforecas
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
 import { weatherApi } from "../instances";
+import { getFormatedTime, getDayByIndex, splitName, shortenName } from "../globalFunctions"
+
 export default {
   name: "App",
+
+  components: {
+    locationPageHead,
+    locationPageHourlyForecast,
+    locationPageWeeklyForecast,
+  },
 
   beforeMount() {
     this.currentCard = this.cards[this.$route.params.id];
@@ -37,23 +45,21 @@ export default {
 
   computed: {
     ...mapGetters({
-      cards: 'getCards',
+      cards: "getCards",
     }),
+
+    splitTitle() {
+      let array = splitName(this.currentCard.title)
+      let title = shortenName(array[0], 15)
+      let subtitle = shortenName(array[1], 20)
+      return [title, subtitle]
+    },
   },
 
   data() {
     return {
       currentCard: null,
       currentTemperature: null,
-      weekDays: [
-        "Sonntag",
-        "Montag",
-        "Dienstag",
-        "Mittwoch",
-        "Donnerstag",
-        "Freitag",
-        "Samstag",
-      ],
       hourlyForecast: [],
       weeklyForecast: [],
     };
@@ -69,13 +75,13 @@ export default {
         },
       }).then((response) => {
         let data = response.data.hourly;
-        data.forEach((el) => {
+        for (let i = 0; i < 24; i++) {
           let newHourlyEntity = {
-            hour: this.getFormatedTime(el.dt),
-            temp: el.temp.toFixed(1),
+            hour: getFormatedTime(data[i].dt),
+            temp: data[i].temp.toFixed(1),
           };
-          this.hourlyForecast.push(newHourlyEntity);
-        });
+          this.hourlyForecast.push(newHourlyEntity)
+        }
       });
     },
 
@@ -103,7 +109,7 @@ export default {
         let data = response.data.daily;
         data.forEach((el, index) => {
           let newWeeklyEntity = {
-            day: this.getWeekdayByIndex(index),
+            day: getDayByIndex(index),
             max: el.temp.max.toFixed(0),
             min: el.temp.min.toFixed(0),
           };
@@ -111,31 +117,6 @@ export default {
         });
       });
     },
-
-    getFormatedTime(unixTime) {
-      let date = new Date(unixTime * 1000);
-      let hours = date.getHours();
-      let minutes = "0" + date.getMinutes();
-      return hours + ":" + minutes.substr(-2);
-    },
-
-    getWeekdayByIndex(apivalueindex) {
-      let today = new Date().getDay();
-      let weeklyindex = today + apivalueindex;
-      if (apivalueindex == 0) {
-        return "Heute";
-      }
-      if (weeklyindex >= 7) {
-        weeklyindex = weeklyindex - 7;
-      }
-      return this.weekDays[weeklyindex];
-    },
-  },
-
-  components: {
-    locationPageHead,
-    locationPageHourlyForecast,
-    locationPageWeeklyForecast,
   },
 };
 </script>

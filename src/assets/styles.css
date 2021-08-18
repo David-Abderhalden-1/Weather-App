@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Molengo&display=swap');
 * {
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
@@ -15,6 +16,7 @@
   --niceGreenOpacity: rgba(80,203,147,0.3);
   --lightRed: #ff4848;
   --darkGrey: #494949;
+  --darkerGrey: #242424;
   --lightGrey: #eee;
   --screenwith: 390px;
 }
