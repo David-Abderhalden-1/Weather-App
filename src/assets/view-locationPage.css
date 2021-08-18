@@ -76,6 +76,10 @@
     display: none;
 }
 
+.hourlyforecast__forecastlist::-webkit-scrollbar {
+    display: none;
+}
+
 .hourlyforecast__forecastlist {
     height: 100%;
     list-style-type: none;
