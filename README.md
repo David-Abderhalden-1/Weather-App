@@ -67,3 +67,21 @@ export default {
 }; 
 ```
 ## Change Config File of Apacheserver to enable reload without error
+```sudo a2enmod rewrite``` This command enables rewrite
+
+```sudo nano /etc/apache2/apache2.conf``` open Apache config file with your prefered editor
+
+```<Directory /var/www/html/>
+        RewriteEngine On
+        RewriteBase /
+        RewriteRule ^index\.html$ - [L]
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule . /index.html [L]
+</Directory>```
+
+Insert this Block to enable reload with vue js without getting an 404 error
+
+```sudo systemctl restart apache2``` At the end you have to restart the Apache Server to use the new configuration.
+
+
