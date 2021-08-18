@@ -16,25 +16,15 @@
       v-html="highlight(element)"
     ></p>
   </div>
-  <main-page-button-edit-add :className="'container__edit-btn'" :buttonValue="'Edit'" v-if="input == ''" :onClickFunction="switchEdit"></main-page-button-edit-add>
-  <main-page-button-edit-add :className="'container__add-btn'" :buttonValue="'Add'" v-if="input != ''" :onClickFunction="addCard"></main-page-button-edit-add>
-  <!-- <button
-    class="container__edit-btn"
-    v-if="input == ''"
-    @click="switchEdit"
-  >
-    Edit
-  </button>
-  <button class="container__add-btn" v-if="input != ''" @click="addCard">
-    Add
-  </button> -->
+  <main-page-button :className="'container__edit-btn'" :buttonValue="'Edit'" v-if="input == ''" :onClickFunction="switchEdit"></main-page-button>
+  <main-page-button :className="'container__add-btn'" :buttonValue="'Add'" v-if="input != ''" :onClickFunction="addCard"></main-page-button>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 import { locationApi, weatherApi } from "../instances";
 import { toTitleCase } from "../globalFunctions";
-import mainPageButtonEditAdd from "../components/mainPage-buttonEditAdd.vue";
+import mainPageButton from "./mainPage-button.vue";
 
 export default {
   name: "mainPage-input-and-dropdown",
@@ -45,7 +35,7 @@ export default {
   },
 
   components: {
-    mainPageButtonEditAdd,
+    mainPageButton,
   },
 
   data() {

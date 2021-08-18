@@ -1,14 +1,15 @@
 <template>
-  <button :class="className" @click="onClickFunction">{{buttonValue}}</button>
+  <button :class="className" @click="onClickFunction(index)">{{buttonValue}}</button>
 </template>
 
 <script>
 export default {
-    name: 'mainPage-buttonEditAdd',
+    name: 'mainPage-button',
     props: {
         className:String,
         buttonValue:String,
         onClickFunction:Function,
+        index:Number,
     }
 }
 </script>

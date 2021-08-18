@@ -14,13 +14,7 @@
           :index="index"
           :card="card"
         ></weather-card>
-        <button
-          v-if="inEdit"
-          @click="deleteCard(index)"
-          class="city-loop__del-btn"
-        >
-          --
-        </button>
+        <main-page-button v-if="inEdit" :className="'city-loop__del-btn'" :buttonValue="'-'" :onClickFunction="deleteCard" :index="index"></main-page-button>
       </div>
     </div>
   </div>
@@ -30,9 +24,10 @@
 import { mapGetters } from "vuex";
 import weatherCard from "@/components/weatherCard.vue";
 import mainPageInputAndDropdown from "../components/mainPage-input-and-dropdown.vue";
+import mainPageButton from "../components/mainPage-button.vue";
 
 export default {
-  components: { weatherCard, mainPageInputAndDropdown },
+  components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
   name: "App",
 
   data(){
