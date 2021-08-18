@@ -16,7 +16,6 @@ const routes = [{
             import ( /* webpackChunkName: "about" */ '../views/locationPage.vue')
     },
     { path: '/:pathMatch(.*)*', redirect: '/' },
-    { path: '/location/:pathMatch(.*)*', redirect: '/' },
 ]
 
 const router = createRouter({
