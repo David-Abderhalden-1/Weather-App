@@ -101,16 +101,16 @@ export default {
       }
     },
 
-    addCard() {
+    addCard(index) {
       this.$store.commit({
         type: "addCard",
+        resultIndex: index,
       });
       this.input = ""; // reset input
     },
 
     // select from the dropdown
     selectElement(index) {
-      this.input = this.searchResult[index].formatted;
       this.addCard(index)
     },
   },
