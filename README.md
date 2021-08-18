@@ -66,3 +66,4 @@ export default {
 
 }; 
 ```
+## Change Config File of Apacheserver to enable reload without error
