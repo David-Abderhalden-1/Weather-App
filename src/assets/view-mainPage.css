@@ -28,36 +28,49 @@ body {
 }
 
 .container__searchbar {
+  box-shadow: 0 0 .5em var(--darkerGrey);
   width: 79%;
   height: 40px;
   margin-right: 1%;
   padding: 10px;
+  outline:none ;
+  border: 2px solid transparent;
   border-radius: 5px;
-  border: none;
-  outline: none;
+}
+.dropdown__text:last-child:hover{
+  background-color: lightgray;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .dropdown__text:hover{
   background-color: lightgray;
 }
 
-
-.container__dropdown{
-  position: absolute;
-  z-index: 99;
-  background: white;
-  width: 79%;
+.dropdown__text:last-child{
+  border-bottom: 2px solid var(--accent2);
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
 .dropdown__text{
   width: 100%;
-  border-top: 1px solid black;
   padding: 5px;
+  background-color: white;
+  border-right: 2px solid var(--accent2);
+  border-left: 2px solid var(--accent2);
 }
 
+.container__dropdown{
+  position: absolute;
+  top: 91%;
+  z-index: 99;
+  background: transparent;
+  width: 79%;
+}
 
-.container__searchbar:focus {
-  outline: 2px solid var(--accent2);
+.container__searchbar:focus, .container__searchbar:not(:placeholder-shown) {
+  border: 2px solid var(--accent2);
 }
 
 .container__add-btn {
@@ -65,6 +78,7 @@ body {
   height: 40px;
   margin-left: 1%;
   border-radius: 5px;
+  background-color: white;
   border: none;
   display: inline-block;
   transition: all 0.4s ease 0s;
@@ -82,6 +96,7 @@ body {
   height: 40px;
   margin-left: 1%;
   border-radius: 5px;
+  background-color: white;
   border: 2px solid var(--grey);
   border: none;
   display: inline-block;
@@ -97,6 +112,8 @@ body {
 
 .main-page__container2 {
   height: 734px;
+  max-width: 650px;
+  margin: 0 auto;
   overflow-y: scroll;
   scrollbar-width: none;
 }
@@ -109,7 +126,6 @@ body {
   display: flex;
   align-items: center;
   max-width: 650px;
-  margin: 0 auto;
 }
 
 .city-loop__comp {
