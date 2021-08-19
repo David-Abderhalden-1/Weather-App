@@ -22,7 +22,7 @@ import locationPageHourlyForecast from "../components/locationPage-hourlyforecas
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import updateAlert from "../components/updateAlert.vue";
 import { mapGetters } from "vuex";
-import { splitName, shortenName, /*showSnackbox*/ } from "../globalFunctions";
+import { splitName, shortenName } from "../globalFunctions";
 import "../swiped-events.js";
 
 export default {
@@ -44,6 +44,7 @@ export default {
   },
 
   mounted() {
+    this.$store.commit({type: "resetUpdate"})
     if(this.currentCard.weekly.length == 0 || this.currentCard.hourly.length == 0){
           this.updateData()
     }

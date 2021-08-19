@@ -167,5 +167,8 @@ export const store = createStore({
                 state.updated = false;
             }, 3000);
         },
+        resetUpdate(state) {
+            state.updated = false
+        }
     },
 })
