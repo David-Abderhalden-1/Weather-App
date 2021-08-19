@@ -2,13 +2,13 @@
   <main class="main">
     <location-page-head
       :title="splitTitle"
-      :currentTemperature="currentTemperature"
+      :currentTemperature="currentCard.temp.toFixed(2)"
     ></location-page-head>
     <location-page-hourly-forecast
-      :hourlyForecast="hourlyForecast"
+      :hourlyForecast="currentCard.hourly"
     ></location-page-hourly-forecast>
     <location-page-weekly-forecast
-      :weeklyForecast="weeklyForecast"
+      :weeklyForecast="currentCard.weekly"
     ></location-page-weekly-forecast>
   </main>
 </template>
@@ -18,8 +18,7 @@ import locationPageHead from "../components/locationPage-head.vue";
 import locationPageHourlyForecast from "../components/locationPage-hourlyforecast.vue";
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
-import { weatherApi } from "../instances";
-import { getFormatedTime, getDayByIndex, splitName, shortenName } from "../globalFunctions"
+import { splitName, shortenName } from "../globalFunctions"
 
 export default {
   name: "App",
@@ -31,16 +30,18 @@ export default {
   },
 
   beforeMount() {
-    this.currentCard = this.cards[this.$route.params.id];
+    this.cardIndex = this.$route.params.id
+    this.currentCard = this.cards[this.cardIndex];
     if (this.currentCard == null) {
       window.location.href = "/"
     }
   },
 
   mounted() {
-    this.getHourlyData();
-    this.getCurrentData();
-    this.getWeeklyData();
+    this.$store.commit({
+      type: 'updateData',
+      cardIndex: this.cardIndex,
+    })
   },
 
   computed: {
@@ -58,66 +59,9 @@ export default {
 
   data() {
     return {
+      cardIndex: 0,
       currentCard: null,
-      currentTemperature: null,
-      hourlyForecast: [],
-      weeklyForecast: [],
     };
-  },
-
-  methods: {
-    getHourlyData() {
-      weatherApi({
-        params: {
-          lat: this.currentCard.lat,
-          lon: this.currentCard.lng,
-          exclude: "daily,minutely,current",
-        },
-      }).then((response) => {
-        let data = response.data.hourly;
-        for (let i = 0; i < 24; i++) {
-          let newHourlyEntity = {
-            hour: getFormatedTime(data[i].dt),
-            temp: data[i].temp.toFixed(1),
-          };
-          this.hourlyForecast.push(newHourlyEntity)
-        }
-      });
-    },
-
-    getCurrentData() {
-      weatherApi({
-        params: {
-          lat: this.currentCard.lat,
-          lon: this.currentCard.lng,
-          exclude: "hourly,daily,minutely",
-        },
-      }).then((response) => {
-        this.currentTemperature = response.data.current.temp.toFixed(2);
-      });
-    },
-
-    getWeeklyData() {
-      weatherApi({
-        params: {
-          lat: this.currentCard.lat,
-          lon: this.currentCard.lng,
-          exclude: "hourly,minutely,current",
-        },
-      }).then((response) => {
-        let data = response.data.daily;
-        data.forEach((el, index) => {
-          let newWeeklyEntity = {
-            day: getDayByIndex(index),
-            max: el.temp.max.toFixed(0),
-            min: el.temp.min.toFixed(0),
-            ico: el.weather[0].id,
-          }
-          console.log(newWeeklyEntity)
-          this.weeklyForecast.push(newWeeklyEntity);
-        });
-      });
-    },
   },
 };
 </script>

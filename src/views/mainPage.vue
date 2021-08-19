@@ -1,7 +1,11 @@
 <template>
   <div class="main-page">
     <div class="main-page__container">
-      <main-page-input-and-dropdown :switchEdit="switchEdit" :toggleOffEdit="toggleOffEdit" :inEdit="inEdit"></main-page-input-and-dropdown>
+      <main-page-input-and-dropdown
+        :switchEdit="switchEdit"
+        :toggleOffEdit="toggleOffEdit"
+        :inEdit="inEdit"
+      ></main-page-input-and-dropdown>
     </div>
     <div class="main-page__container2">
       <div
@@ -14,7 +18,13 @@
           :index="index"
           :card="card"
         ></weather-card>
-        <main-page-button v-if="inEdit" :className="'city-loop__del-btn'" :buttonValue="'-'" :onClickFunction="deleteCard" :index="index"></main-page-button>
+        <main-page-button
+          v-if="inEdit"
+          :className="'city-loop__del-btn'"
+          :buttonValue="'-'"
+          :onClickFunction="deleteCard"
+          :index="index"
+        ></main-page-button>
       </div>
     </div>
   </div>
@@ -30,10 +40,14 @@ export default {
   components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
   name: "App",
 
-  data(){
+  mounted() {
+    this.updateData()
+  },
+
+  data() {
     return {
-      inEdit: false
-    }
+      inEdit: false,
+    };
   },
 
   computed: {
@@ -49,12 +63,20 @@ export default {
       });
       localStorage.setItem("cards", JSON.stringify(this.cards));
     },
-    switchEdit(){
-      this.inEdit = !this.inEdit
+    switchEdit() {
+      this.inEdit = !this.inEdit;
     },
-    toggleOffEdit(){
-      this.inEdit = false
-    }
+    toggleOffEdit() {
+      this.inEdit = false;
+    },
+    // update data of all cards
+    updateData() {
+      for (let i = 0; i < this.cards.length; i++)
+        this.$store.commit({
+          type: "updateData",
+          cardIndex: i,
+        });
+    },
   },
 };
 </script>
