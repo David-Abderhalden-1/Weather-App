@@ -7,6 +7,7 @@ export const store = createStore({
         searchLocationResponse: {}, // tmp search result storage
         cards: [], // all active cards.
         loaded: false, // if data was loaded to store
+        updated: false,
     },
     getters: {
         getSearchLocationResponse(state) {
@@ -19,6 +20,9 @@ export const store = createStore({
             }
             return state.cards
         },
+        getUpdated(state) {
+            return state.updated
+        },
 
     },
     mutations: {
@@ -30,8 +34,6 @@ export const store = createStore({
         async updateData(state, payload) {
 
             let card = state.cards[payload.cardIndex]
-
-            console.log("updated data")
 
             let hourlyForecast = []
             let weeklyForecast = []
@@ -100,6 +102,8 @@ export const store = createStore({
 
             // update local Storage
             localStorage.setItem('cards', JSON.stringify(state.cards));
+
+            console.log("updated data")
             
         },
 
@@ -155,6 +159,13 @@ export const store = createStore({
 
         deleteCard(state, payload) {
             state.cards.splice(payload.index, 1)
+        },
+
+        toUpdated(state) {
+            state.updated = true
+            setTimeout(function() {
+                state.updated = false;
+            }, 3000);
         },
     },
 })

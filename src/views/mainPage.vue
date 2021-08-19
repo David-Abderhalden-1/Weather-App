@@ -27,7 +27,7 @@
         ></main-page-button>
       </div>
     </div>
-    <update-alert></update-alert>
+  <update-alert></update-alert>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ import weatherCard from "@/components/weatherCard.vue";
 import mainPageInputAndDropdown from "../components/mainPage-input-and-dropdown.vue";
 import mainPageButton from "../components/mainPage-button.vue";
 import updateAlert from "../components/updateAlert.vue"
-import { showSnackbox } from "../globalFunctions";
+//import { showSnackbox } from "../globalFunctions";
 import "../swiped-events.js";
 
 export default {
@@ -51,7 +51,7 @@ export default {
       .getElementsByClassName("main-page")[0]
       .addEventListener("swiped-down", function () {
         component.updateAllData();
-        showSnackbox()
+        //showSnackbox()
       });
   },
 
@@ -88,6 +88,7 @@ export default {
           type: "updateData",
           cardIndex: i,
         });
+        this.$store.commit({type: 'toUpdated'})
     },
   },
 };
