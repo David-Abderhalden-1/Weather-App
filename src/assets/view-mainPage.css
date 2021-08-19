@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 strong {
     font-weight: bold;
 }
@@ -194,4 +195,26 @@ a {
 .city-loop__del-btn:hover {
     background: var(--lightRed);
     color: white;
+}
+
+.main-page__info {
+    position: fixed;
+    bottom: 8%;
+    left: 5%;
+    right: 5%;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.info__img {
+    height: 5%;
+    width: 5%;
+}
+
+.info__text {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 220%;
+    color: rgba(207, 207, 207, 0.589);
 }

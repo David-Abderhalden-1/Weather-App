@@ -27,6 +27,11 @@
         ></main-page-button>
       </div>
     </div>
+    <div class="main-page__info">
+      <img src="@/assets/img/down-arrow.svg" class="info__img"/>
+      <p class="info__text">Swipe To Reload</p>
+      <img src="@/assets/img/down-arrow.svg" class="info__img"/>
+    </div>
     <update-alert></update-alert>
   </div>
 </template>
