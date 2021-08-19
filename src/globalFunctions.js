@@ -15,11 +15,12 @@ function splitName(string) {
 }
 
 function shortenName(name, maxLength) {
-    if(name === undefined) return name
-    if(name.length > maxLength){
+    if (name === undefined) return name
+    if (name.length > maxLength) {
         name = name.slice(0, maxLength)
         return name + "..."
-    }return name
+    }
+    return name
 }
 
 function getFormatedTime(unixTime) {
@@ -57,4 +58,5 @@ export {
     getDayByIndex,
     splitName,
     shortenName,
+    //showSnackbox,
 }
