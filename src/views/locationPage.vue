@@ -20,6 +20,7 @@ import locationPageHourlyForecast from "../components/locationPage-hourlyforecas
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
 import { splitName, shortenName } from "../globalFunctions";
+import "../swiped-events.js";
 
 export default {
   name: "App",
@@ -39,7 +40,6 @@ export default {
   },
 
   mounted() {
-    // just when data is mmissing
     if(this.currentCard.weekly.length == 0 || this.currentCard.hourly.length == 0){
           this.updateData()
     }

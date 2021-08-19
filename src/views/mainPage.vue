@@ -35,6 +35,7 @@ import { mapGetters } from "vuex";
 import weatherCard from "@/components/weatherCard.vue";
 import mainPageInputAndDropdown from "../components/mainPage-input-and-dropdown.vue";
 import mainPageButton from "../components/mainPage-button.vue";
+import "../swiped-events.js";
 
 export default {
   components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
@@ -42,7 +43,11 @@ export default {
 
   // on Page reload
   mounted() {
-    //this.updateData()
+    const component = this
+    document.addEventListener("swiped-down", function() {
+      component.updateAllData()
+      alert("Updated Data")
+    });
   },
 
   data() {
@@ -56,6 +61,7 @@ export default {
       cards: "getCards", // all cards
     }),
   },
+
   methods: {
     deleteCard(index) {
       this.$store.commit({
@@ -71,7 +77,7 @@ export default {
       this.inEdit = false;
     },
     // update data of all cards
-    updateData() {
+    updateAllData() {
       for (let i = 0; i < this.cards.length; i++)
         this.$store.commit({
           type: "updateData",

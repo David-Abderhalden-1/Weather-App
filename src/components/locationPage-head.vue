@@ -2,7 +2,7 @@
   <article class="main__head">
     <div class="head__buttons">
       <button class="buttons__button" @click="goBack">&lt;</button>
-      <button class="buttons__button" @click="refreshData"><img href="../assets/img/refresh-icon.svg"/></button>
+      <button class="buttons__button" @click="refreshData"><img src="@/assets/img/refresh-icon.svg"/></button>
     </div>
     <div
       class="head__title"
