@@ -18,7 +18,7 @@ import locationPageHead from "../components/locationPage-head.vue";
 import locationPageHourlyForecast from "../components/locationPage-hourlyforecast.vue";
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
-import { splitName, shortenName } from "../globalFunctions"
+import { splitName, shortenName } from "../globalFunctions";
 
 export default {
   name: "App",
@@ -30,18 +30,17 @@ export default {
   },
 
   beforeMount() {
-    this.cardIndex = this.$route.params.id
+    this.cardIndex = this.$route.params.id;
     this.currentCard = this.cards[this.cardIndex];
     if (this.currentCard == null) {
-      window.location.href = "/"
+      window.location.href = "/";
     }
   },
 
   mounted() {
-    this.$store.commit({
-      type: 'updateData',
-      cardIndex: this.cardIndex,
-    })
+    if(this.currentCard.weekly.length == 0 || this.currentCard.hourly.length == 0){
+          this.updateData()
+    }
   },
 
   computed: {
@@ -50,10 +49,10 @@ export default {
     }),
 
     splitTitle() {
-      let array = splitName(this.currentCard.title)
-      let title = shortenName(array[0], 15)
-      let subtitle = shortenName(array[1], 20)
-      return [title, subtitle]
+      let array = splitName(this.currentCard.title);
+      let title = shortenName(array[0], 15);
+      let subtitle = shortenName(array[1], 20);
+      return [title, subtitle];
     },
   },
 
@@ -62,6 +61,15 @@ export default {
       cardIndex: 0,
       currentCard: null,
     };
+  },
+
+  methods: {
+    updateData() {
+      this.$store.commit({
+        type: "updateData",
+        cardIndex: this.cardIndex,
+      });
+    },
   },
 };
 </script>

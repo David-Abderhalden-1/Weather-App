@@ -40,8 +40,9 @@ export default {
   components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
   name: "App",
 
+  // on Page reload
   mounted() {
-    this.updateData()
+    //this.updateData()
   },
 
   data() {
