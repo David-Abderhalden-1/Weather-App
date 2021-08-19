@@ -15,11 +15,12 @@ function splitName(string) {
 }
 
 function shortenName(name, maxLength) {
-    if(name === undefined) return name
-    if(name.length > maxLength){
+    if (name === undefined) return name
+    if (name.length > maxLength) {
         name = name.slice(0, maxLength)
         return name + "..."
-    }return name
+    }
+    return name
 }
 
 function getFormatedTime(unixTime) {
@@ -51,10 +52,19 @@ function getDayByIndex(apiIndex) {
     return weekDays[weeklyindex];
 }
 
+function showSnackbox() {
+    var snackbar = document.getElementById("snackbar");
+    snackbar.className = "show";
+    setTimeout(function() {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
+
+}
 export {
     toTitleCase,
     getFormatedTime,
     getDayByIndex,
     splitName,
     shortenName,
+    showSnackbox,
 }

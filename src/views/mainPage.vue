@@ -27,6 +27,7 @@
         ></main-page-button>
       </div>
     </div>
+    <update-alert></update-alert>
   </div>
 </template>
 
@@ -35,19 +36,23 @@ import { mapGetters } from "vuex";
 import weatherCard from "@/components/weatherCard.vue";
 import mainPageInputAndDropdown from "../components/mainPage-input-and-dropdown.vue";
 import mainPageButton from "../components/mainPage-button.vue";
+import updateAlert from "../components/updateAlert.vue"
+import { showSnackbox } from "../globalFunctions";
 import "../swiped-events.js";
 
 export default {
-  components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
+  components: { weatherCard, mainPageInputAndDropdown, mainPageButton, updateAlert },
   name: "App",
 
   // on Page reload
   mounted() {
-    const component = this
-    document.getElementsByClassName('main-page')[0].addEventListener("swiped-down", function() {
-      component.updateAllData()
-      alert("Updated Data")
-    });
+    const component = this;
+    document
+      .getElementsByClassName("main-page")[0]
+      .addEventListener("swiped-down", function () {
+        component.updateAllData();
+        showSnackbox()
+      });
   },
 
   data() {

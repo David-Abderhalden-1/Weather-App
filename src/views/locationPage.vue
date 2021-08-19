@@ -12,14 +12,17 @@
       :weeklyForecast="currentCard.weekly"
     ></location-page-weekly-forecast>
   </main>
+  <update-alert></update-alert>
+
 </template>
 
 <script>
 import locationPageHead from "../components/locationPage-head.vue";
 import locationPageHourlyForecast from "../components/locationPage-hourlyforecast.vue";
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
+import updateAlert from "../components/updateAlert.vue";
 import { mapGetters } from "vuex";
-import { splitName, shortenName } from "../globalFunctions";
+import { splitName, shortenName, showSnackbox } from "../globalFunctions";
 import "../swiped-events.js";
 
 export default {
@@ -29,6 +32,7 @@ export default {
     locationPageHead,
     locationPageHourlyForecast,
     locationPageWeeklyForecast,
+    updateAlert,
   },
 
   beforeMount() {
@@ -71,11 +75,14 @@ export default {
         type: "updateData",
         cardIndex: this.cardIndex,
       });
+      showSnackbox()
     },
+
   },
 };
 </script>
 
 <style>
 @import "../assets/view-locationPage.css";
+@import "../assets/view-mainPage.css";
 </style>
