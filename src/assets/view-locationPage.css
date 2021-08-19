@@ -124,11 +124,30 @@
 }
 
 .weeklyrowentity__tabledata {
+    position: relative;
     font-size: 25px;
 }
 
-.tabledata__modifier {
+.weekly-forecast__wrapper {
+    position: relative;
+    height: 2px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0px;
+    padding: 0px;
+}
+.weekly-forecast__img {
+    position: absolute;
+    height: 40px;
+}
+
+.weeklyrowentity__tabledata--end {
     text-align: end;
+}
+
+.weeklyrowentity__tabledata--slim {
+    width: 15%;
 }
 
 .weeklyrowentity__tableheader {

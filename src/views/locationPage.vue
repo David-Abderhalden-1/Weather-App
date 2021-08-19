@@ -105,14 +105,15 @@ export default {
           exclude: "hourly,minutely,current",
         },
       }).then((response) => {
-        console.log(response.data.daily);
         let data = response.data.daily;
         data.forEach((el, index) => {
           let newWeeklyEntity = {
             day: getDayByIndex(index),
             max: el.temp.max.toFixed(0),
             min: el.temp.min.toFixed(0),
-          };
+            ico: el.weather[0].id,
+          }
+          console.log(newWeeklyEntity)
           this.weeklyForecast.push(newWeeklyEntity);
         });
       });
