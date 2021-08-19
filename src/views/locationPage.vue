@@ -19,7 +19,13 @@ import locationPageHourlyForecast from "../components/locationPage-hourlyforecas
 import locationPageWeeklyForecast from "../components/locationPage-weeklyforecast.vue";
 import { mapGetters } from "vuex";
 import { weatherApi } from "../instances";
-import { getFormatedTime, getDayByIndex, splitName, shortenName } from "../globalFunctions"
+import {
+  getFormatedTime,
+  getDayByIndex,
+  splitName,
+  shortenName,
+} from "../globalFunctions";
+import "../swiped-events.js";
 
 export default {
   name: "App",
@@ -33,7 +39,7 @@ export default {
   beforeMount() {
     this.currentCard = this.cards[this.$route.params.id];
     if (this.currentCard == null) {
-      window.location.href = "/"
+      window.location.href = "/";
     }
   },
 
@@ -41,7 +47,13 @@ export default {
     this.getHourlyData();
     this.getCurrentData();
     this.getWeeklyData();
+    document.addEventListener('swiped-down', function (e) {
+    });
   },
+
+  // eventListeners() {
+    
+  // },
 
   computed: {
     ...mapGetters({
@@ -49,10 +61,10 @@ export default {
     }),
 
     splitTitle() {
-      let array = splitName(this.currentCard.title)
-      let title = shortenName(array[0], 15)
-      let subtitle = shortenName(array[1], 20)
-      return [title, subtitle]
+      let array = splitName(this.currentCard.title);
+      let title = shortenName(array[0], 15);
+      let subtitle = shortenName(array[1], 20);
+      return [title, subtitle];
     },
   },
 
@@ -62,6 +74,7 @@ export default {
       currentTemperature: null,
       hourlyForecast: [],
       weeklyForecast: [],
+      swipeDirection: null,
     };
   },
 
@@ -80,7 +93,7 @@ export default {
             hour: getFormatedTime(data[i].dt),
             temp: data[i].temp.toFixed(1),
           };
-          this.hourlyForecast.push(newHourlyEntity)
+          this.hourlyForecast.push(newHourlyEntity);
         }
       });
     },

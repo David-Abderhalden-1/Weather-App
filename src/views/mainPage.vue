@@ -25,6 +25,7 @@ import { mapGetters } from "vuex";
 import weatherCard from "@/components/weatherCard.vue";
 import mainPageInputAndDropdown from "../components/mainPage-input-and-dropdown.vue";
 import mainPageButton from "../components/mainPage-button.vue";
+import "../swiped-events.js";
 
 export default {
   components: { weatherCard, mainPageInputAndDropdown, mainPageButton },
@@ -41,6 +42,12 @@ export default {
       cards: "getCards", // all cards
     }),
   },
+
+  mounted() {
+    document.addEventListener('swiped-down', function (e) {
+    });
+  }, 
+
   methods: {
     deleteCard(index) {
       this.$store.commit({
