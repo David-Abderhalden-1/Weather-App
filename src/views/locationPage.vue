@@ -3,6 +3,7 @@
     <location-page-head
       :title="splitTitle"
       :currentTemperature="currentCard.temp.toFixed(2)"
+      :refreshData="updateData"
     ></location-page-head>
     <location-page-hourly-forecast
       :hourlyForecast="currentCard.hourly"
@@ -38,6 +39,7 @@ export default {
   },
 
   mounted() {
+    // just when data is mmissing
     if(this.currentCard.weekly.length == 0 || this.currentCard.hourly.length == 0){
           this.updateData()
     }
