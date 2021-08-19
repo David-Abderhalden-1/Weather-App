@@ -44,7 +44,7 @@ export default {
   // on Page reload
   mounted() {
     const component = this
-    document.addEventListener("swiped-down", function() {
+    document.getElementsByClassName('main-page')[0].addEventListener("swiped-down", function() {
       component.updateAllData()
       alert("Updated Data")
     });
