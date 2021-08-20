@@ -16,8 +16,18 @@
       v-html="highlight(element)"
     ></p>
   </div>
-  <main-page-button :className="'container__edit-btn'" :buttonValue="'Edit'" v-if="input == ''" :onClickFunction="switchEdit"></main-page-button>
-  <main-page-button :className="'container__add-btn'" :buttonValue="'Add'" v-if="input != ''" :onClickFunction="addCard"></main-page-button>
+  <main-page-button
+    :className="'container__edit-btn'"
+    :buttonValue="'Edit'"
+    v-if="input == ''"
+    :onClickFunction="switchEdit"
+  ></main-page-button>
+  <main-page-button
+    :className="'container__add-btn'"
+    :buttonValue="'Add'"
+    v-if="input != ''"
+    :onClickFunction="addCard"
+  ></main-page-button>
 </template>
 
 <script>
@@ -67,26 +77,20 @@ export default {
     input() {
       if (this.input.length > 2) {
         // api needs at least two letters. else error
-        this.requestLocation();
+        this.$store.commit({
+          type: "storeSearchResult",
+          input: this.input,
+        });
+      }
+      else {
+        this.$store.commit({
+          type: "clearSearchResult"
+        })
       }
     },
   },
 
   methods: {
-    // loaction api interface
-    requestLocation() {
-      locationApi({
-        params: {
-          q: this.input,
-        },
-      }).then((response) => {
-        this.$store.commit({
-          type: "storeSearchResult",
-          results: response.data.results,
-        });
-      });
-    },
-
     // highlight the active input in search result
     highlight(element) {
       //const serializedInput = new RegExp(this.input)
@@ -102,22 +106,30 @@ export default {
     },
 
     addCard(index) {
+      // add card
       this.$store.commit({
         type: "addCard",
         resultIndex: index,
       });
+      // show info banner
       this.input = ""; // reset input
+      this.$store.commit({
+        type: "toUpdated",
+      });
     },
 
     // select from the dropdown
     selectElement(index) {
-      this.addCard(index)
+      this.addCard(index);
     },
   },
 
   created() {
+    // check if cards already loaded
     if (this.cards.length > 0) return;
+    // check if Local Storage has cards
     if (localStorage.getItem("cards")) {
+      // store cards from store in view data
       var lsCards = JSON.parse(localStorage.getItem("cards"));
       for (let i = 0; i < lsCards.length; i++) {
         this.cards.push(lsCards[i]);

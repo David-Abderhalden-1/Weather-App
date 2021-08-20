@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <div id="snackbar" :class="[showAlert ? 'show' : '']" >Updated Data</div>
+    <div id="snackbar" :class="[showAlert ? 'show' : '']" >{{ alertMessage }}</div>
   </footer>
 </template>
 
@@ -11,6 +11,7 @@ export default {
   computed: {
     ...mapGetters({
       showAlert: "getUpdated",
+      alertMessage: "getAlertMessage",
     })
   }
 };
