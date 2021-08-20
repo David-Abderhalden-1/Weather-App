@@ -1,5 +1,6 @@
-strong {
+.text__strong {
     font-weight: bold;
+    color: var(--pink);
 }
 
 .container__searchbar {

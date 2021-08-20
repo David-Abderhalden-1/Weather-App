@@ -140,7 +140,6 @@ export const store = createStore({
                     hourly: [],                 // weekly forecast (empty when first builded)
                 }
                 // Prevent redundant cards
-                console.log(cardBuilder)
                 if (!state.cards.some(card => card["title"] === cardBuilder.title)) {
                     state.cards.push(cardBuilder)
                     state.alertMessage = "Successfully added card"

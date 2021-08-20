@@ -6,8 +6,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  /*--background: #261c2c;
-  --foreground: #3e2c41;*/
+  --background: #261c2c;
+  --foreground: #3e2c41;
   --accent1: #5c527f;
   --cardBg: rgba(255,255,255,0.3);
   --accent2: #6e85b2;

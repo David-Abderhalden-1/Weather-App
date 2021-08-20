@@ -100,7 +100,7 @@ export default {
         const formattedInput = toTitleCase(this.input);
         return string.replace(
           formattedInput,
-          "<strong>" + formattedInput + "</strong>"
+          "<strong class='text__strong'>" + formattedInput + "</strong>"
         );
       }
     },
@@ -139,5 +139,5 @@ export default {
 };
 </script>
 
-<style src="@/assets/mainPage-input-and-dropdown.css" scoped>
+<style src="@/assets/mainPage-input-and-dropdown.css">
 </style>
