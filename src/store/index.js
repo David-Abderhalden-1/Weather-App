@@ -1,6 +1,6 @@
 import { getFormatedTime, getDayByIndex } from "../globalFunctions"
 import { createStore } from 'vuex'
-import { weatherApi } from '../instances'
+import { weatherApi, locationApi } from '../instances'
 
 export const store = createStore({
     state: {
@@ -8,6 +8,7 @@ export const store = createStore({
         cards: [], // all active cards.
         loaded: false, // if data was loaded to store
         updated: false,
+        alertMessage: "",
     },
     getters: {
         getSearchLocationResponse(state) {
@@ -23,76 +24,71 @@ export const store = createStore({
         getUpdated(state) {
             return state.updated
         },
+        getAlertMessage(state) {
+            return state.alertMessage
+        }
 
     },
     mutations: {
         // results from search of the location api interface are stored
         storeSearchResult(state, payload) {
-            state.searchLocationResponse = payload.results;
+            locationApi({
+                params: {
+                    q: payload.input,
+                },
+            }).then((response) => {
+                state.searchLocationResponse = response.data.results;
+            });
         },
 
         async updateData(state, payload) {
 
+            // active card
             let card = state.cards[payload.cardIndex]
 
+            // formatted arrays
             let hourlyForecast = []
             let weeklyForecast = []
+
+            // raw api data
+            let weekyData = []
+            let hourlyData = []
             let gradCelsius = 0
             let weatherId = 0
 
-            // hourly data request
-            let hourlyData =
+            // weather api request
+            let response =
                 await weatherApi({
                     params: {
                         lat: card.lat,
                         lon: card.lng,
-                        exclude: "daily,minutely,current",
-                    },
+                        exclude: "minutely"
+                    }
                 })
-            hourlyData = hourlyData.data.hourly;
+            hourlyData = response.data.hourly;
+            weekyData = response.data.daily;
+            weatherId = response.data.current.weather[0].id;
+            gradCelsius = response.data.current.temp;
 
             // build hourly entry
             for (let i = 0; i < 24; i++) {
                 let newHourlyEntity = {
-                    hour: getFormatedTime(hourlyData[i].dt),
-                    temp: hourlyData[i].temp.toFixed(1),
+                    hour: getFormatedTime(hourlyData[i].dt),    // hour in computer time
+                    temp: hourlyData[i].temp.toFixed(1),        // temperature of hour
                 };
                 hourlyForecast.push(newHourlyEntity)
             }
 
-            // weekly data request
-            let weekyData =
-                await weatherApi({
-                    params: {
-                        lat: card.lat,
-                        lon: card.lng,
-                        exclude: "hourly,minutely,current",
-                    },
-                })
-            weekyData = weekyData.data.daily
-
             // build weekly entry 
             weekyData.forEach((el, index) => {
                 let newWeeklyEntity = {
-                    day: getDayByIndex(index),
-                    max: el.temp.max.toFixed(0),
-                    min: el.temp.min.toFixed(0),
-                    ico: el.weather[0].id,
+                    day: getDayByIndex(index),          // String name of day
+                    max: el.temp.max.toFixed(0),        // maximal temperature of day
+                    min: el.temp.min.toFixed(0),        // minimum temperature of day
+                    ico: el.weather[0].id,              // icon id of day
                 }
                 weeklyForecast.push(newWeeklyEntity);
             })
-
-            // current data request
-            let currendData =
-            await weatherApi({
-                params: {
-                    lat: card.lat,
-                    lon: card.lng,
-                    exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
-                },
-            })
-            weatherId = currendData.data.current.weather[0].id
-            gradCelsius = currendData.data.current.temp
 
             // update current card
             card.weatherId = weatherId
@@ -102,30 +98,32 @@ export const store = createStore({
 
             // update local Storage
             localStorage.setItem('cards', JSON.stringify(state.cards));
+            // safe alert message
+            state.alertMessage = "Updated Data"
 
-            console.log("updated data")
-            
         },
 
         async addCard(state, payload) {
+            // top search result
             let location = state.searchLocationResponse[0]
 
-            // Top result is reformatted and stored as card
+            // click on specific search result
             if (Number.isInteger(payload.resultIndex)) {
-                location = state.searchLocationResponse[payload.resultIndex]
+                location = state.searchLocationResponse[payload.resultIndex]    // specific result is selected
             }
 
             try {
+                // raw data
                 let weatherId = 0
                 let gradCelsius = 0
 
-                // requestWeather
+                // request weather data
                 let currendData =
                     await weatherApi({
                         params: {
                             lat: location.geometry.lat,
                             lon: location.geometry.lng,
-                            exclude: 'hourly,daily,minutely', //this.$store.dispatch('getExcluded', {include: 'current'}),
+                            exclude: 'hourly,daily,minutely',
                         },
                     })
                 weatherId = currendData.data.current.weather[0].id
@@ -133,20 +131,21 @@ export const store = createStore({
 
                 // build new Card
                 const cardBuilder = {
-                    title: location.formatted, // location preview name
-                    weatherId: weatherId,
-                    temp: gradCelsius,
+                    title: location.formatted,  // location preview name
+                    weatherId: weatherId,       // current weather icon id
+                    temp: gradCelsius,          // current temperature
                     lat: location.geometry.lat, // latitude
                     lng: location.geometry.lng, // longitude
-                    weekly: [],                 // weekly forecast (empty when builded)
-                    hourly: [],                 // weekly forecast (empty when builded)
+                    weekly: [],                 // weekly forecast (empty when first builded)
+                    hourly: [],                 // weekly forecast (empty when first builded)
                 }
                 // Prevent redundant cards
                 console.log(cardBuilder)
                 if (!state.cards.some(card => card["title"] === cardBuilder.title)) {
                     state.cards.push(cardBuilder)
+                    state.alertMessage = "Successfully added card"
                 } else {
-                    alert("card has already been added.") // probably change
+                    state.alertMessage = "Card already exists!"
                 }
             } catch (error) {
                 return 0
@@ -163,12 +162,17 @@ export const store = createStore({
 
         toUpdated(state) {
             state.updated = true
-            setTimeout(function() {
+            setTimeout(function () {
                 state.updated = false;
             }, 3000);
         },
+
         resetUpdate(state) {
             state.updated = false
-        }
+        },
+
+        clearSearchResult(state) {
+            state.searchLocationResponse = {}
+        },
     },
 })
