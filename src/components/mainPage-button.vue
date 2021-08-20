@@ -14,6 +14,6 @@ export default {
 }
 </script>
 
-<style>
+<style src="@/assets/mainPage-button.css" scoped>
 
 </style>

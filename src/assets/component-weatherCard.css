@@ -14,9 +14,9 @@
 }
 
 .comp__card:hover{
-  background: rgba(247, 230, 173, 0.4);
+  background: var(--pinkOpacity);
   color: white;
-  border: 2px solid rgb(247, 230, 173);
+  border: 2px solid var(--pink);
 }
 
 .card__city{

@@ -103,6 +103,6 @@ export default {
 };
 </script>
 
-<style>
-@import "../assets/view-mainPage.css";
+<style src="@/assets/view-mainPage.css" scoped>
+
 </style>

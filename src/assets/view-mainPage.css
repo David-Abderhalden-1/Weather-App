@@ -1,118 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
-strong {
-    font-weight: bold;
-}
 
-
-/*
-body {
-  background: var(--background);
-  padding: 20px;
-  background-image: url('./img/anime-sky.jpg');
+.main-page{
+  background-image: url('./img/anime-sky3.jpg');
   background-size: cover;
+  background-size: 177vh 100vh;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
 }
-*/
 
-.main-page {
-    /*max-width: 690px;*/
-    margin: 0 auto;
-    background: var(--background);
-    padding: 20px;
-    background-image: url('./img/anime-sky.jpg');
-    background-size: cover;
-    position: fixed;
-    height: 100%;
-    width: 100%;
+@media(min-width: 177vh){
+  .main-page{
+    background-size: 100vw 56vw;
+  }
 }
 
 .main-page__container {
-    position: relative;
-    margin: 10px auto;
-}
-
-.container__searchbar {
-    box-shadow: 0 0 .5em var(--darkerGrey);
-    width: 79%;
-    height: 40px;
-    margin-right: 1%;
-    padding: 10px;
-    outline: none;
-    border: 2px solid transparent;
-    border-radius: 5px;
-}
-
-.dropdown__text:last-child:hover {
-    background-color: lightgray;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.dropdown__text:hover {
-    background-color: lightgray;
-}
-
-.dropdown__text:last-child {
-    border-bottom: 2px solid var(--accent2);
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-}
-
-.dropdown__text {
-    width: 100%;
-    padding: 5px;
-    background-color: white;
-    border-right: 2px solid var(--accent2);
-    border-left: 2px solid var(--accent2);
-}
-
-.container__dropdown {
-    position: absolute;
-    top: 91%;
-    z-index: 99;
-    background: transparent;
-    width: 79%;
-}
-
-.container__searchbar:focus,
-.container__searchbar:not(:placeholder-shown) {
-    border: 2px solid var(--accent2);
-}
-
-.container__add-btn {
-    width: 19%;
-    height: 40px;
-    margin-left: 1%;
-    border-radius: 5px;
-    background-color: white;
-    border: none;
-    display: inline-block;
-    transition: all 0.4s ease 0s;
-}
-
-.container__add-btn:hover {
-    color: #ffffff;
-    background: var(--niceGreen);
-    border-color: var(--niceGreen);
-    transition: 0.2s ease-out;
-}
-
-.container__edit-btn {
-    width: 19%;
-    height: 40px;
-    margin-left: 1%;
-    border-radius: 5px;
-    background-color: white;
-    border: 2px solid var(--grey);
-    border: none;
-    display: inline-block;
-    transition: all 0.4s ease 0s;
-}
-
-.container__edit-btn:hover {
-    color: #ffffff;
-    background: var(--accent2);
-    border-color: var(--accent2);
-    transition: 0.2s ease-out;
+  position: relative;
+  max-width: 650px;
+  margin: 10px auto;
 }
 
 .main-page__container2 {
@@ -120,6 +26,7 @@ body {
     margin: 0 auto;
     overflow-y: scroll;
     scrollbar-width: none;
+    height: calc(100vh - 80px);
 }
 
 .main-page__container2::-webkit-scrollbar {
@@ -134,52 +41,6 @@ body {
 
 .city-loop__comp {
     width: 100%;
-}
-
-.comp__card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 650px;
-    min-height: 70px;
-    background-color: var(--cardBg);
-    margin: 10px auto;
-    border: 2px solid white;
-    border-radius: 5px;
-    color: white;
-    transition: background, color 0.2s ease-out;
-}
-
-.comp__card:hover {
-    background: rgba(247, 230, 173, 0.4);
-    color: white;
-    border: 2px solid rgb(247, 230, 173);
-}
-
-.card__city {
-    margin: 10px;
-    font-size: 20px;
-    font-weight: 600;
-    width: 50%;
-}
-
-.card__city-info {
-    display: flex;
-    align-items: center;
-    margin: 0px 10px 0px 10px;
-    min-width: 120px;
-    font-size: 20px;
-    font-weight: 600;
-    justify-content: space-between;
-}
-
-.city-info__img {
-    height: 64px;
-}
-
-a {
-    text-decoration: none;
 }
 
 .city-loop__del-btn {

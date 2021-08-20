@@ -41,4 +41,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style src="../assets/component-weatherCard.css" scoped>
+
+</style>

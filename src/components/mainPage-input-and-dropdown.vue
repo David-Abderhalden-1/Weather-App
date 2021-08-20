@@ -127,5 +127,5 @@ export default {
 };
 </script>
 
-<style>
+<style src="@/assets/mainPage-input-and-dropdown.css" scoped>
 </style>

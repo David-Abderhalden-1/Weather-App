@@ -1,0 +1,44 @@
+.container__add-btn {
+    width: 19%;
+    height: 40px;
+    margin-left: 1%;
+    border-radius: 5px;
+    background-color: white;
+    border: none;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+}
+
+.container__add-btn:hover {
+    color: #ffffff;
+    background: var(--niceGreen);
+    border-color: var(--niceGreen);
+    transition: 0.2s ease-out;
+}
+
+.container__add-btn:active{
+  background-color: var(--niceGreenDarker);
+}
+
+.container__edit-btn {
+    width: 19%;
+    height: 40px;
+    margin-left: 1%;
+    border-radius: 5px;
+    background-color: white;
+    border: 2px solid var(--grey);
+    border: none;
+    display: inline-block;
+    transition: 0.2s ease;
+}
+
+.container__edit-btn:hover {
+    color: #ffffff;
+    background: var(--accent2);
+    border-color: var(--accent2);
+    transition: 0.2s ease-out;
+}
+
+.container__edit-btn:active{
+  background-color: var(--accent2darker);
+}
