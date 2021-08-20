@@ -53,5 +53,5 @@
 
 .container__searchbar:focus,
 .container__searchbar:not(:placeholder-shown) {
-    border: 2px solid var(--accent2);
+    border: 2px solid var(--pink);
 }

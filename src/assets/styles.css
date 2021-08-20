@@ -22,3 +22,7 @@
   --pinkOpacity: rgba(233, 59, 129, 0.2);
   --screenwith: 390px;
 }
+
+body{
+  background: #84cdee;
+}
