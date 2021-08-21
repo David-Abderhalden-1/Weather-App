@@ -8,7 +8,7 @@ export const store = createStore({
         cards: [], // all active cards.
         loaded: false, // if data was loaded to store
         updated: false,
-        alertMessage: "",
+        alertMessage: "Add a card first",
     },
     getters: {
         getSearchLocationResponse(state) {

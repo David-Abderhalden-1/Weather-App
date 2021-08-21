@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 .main-page{
+  position: fixed;
   background-image: url('./img/anime-sky3.jpg');
   background-size: cover;
-  background-size: 177vh 100vh;
-  height: 100vh;
+  /*background-size: 100% 100%;*/
+  height: 100%;
+  width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
